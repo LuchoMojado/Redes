@@ -30,6 +30,10 @@ public class Player : NetworkBehaviour
                 SelectCard(hit.transform.GetComponent<Card>());
             }
         }
+
+        Stack<Card> stack = new Stack<Card>();
+
+        stack.
     }
 
     public void BeDealt(Card card)
