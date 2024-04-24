@@ -8,10 +8,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject startGameButton;
 
-    public Transform[] playerSpawns;
-
     [HideInInspector] public Player activePlayer = null;
-    [HideInInspector] public List<Player> players = new List<Player>();
+    public List<Player> players = new List<Player>();
 
     [HideInInspector] public List<Card> onTable = new List<Card>();
     public Stack<Card> deck = new Stack<Card>();
@@ -26,11 +24,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-
-        PreGame();
     }
 
-    void PreGame()
+    public void PreGame()
     {
         deckPos = _preGameDeckPos;
 

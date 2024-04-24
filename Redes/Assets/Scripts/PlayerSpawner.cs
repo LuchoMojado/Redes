@@ -8,6 +8,8 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField] Player _player;
 
+    public Transform[] playerSpawns;
+
     public void PlayerJoined(PlayerRef player)
     {
         var playerCount = Runner.ActivePlayers.Count() - 1;
@@ -16,13 +18,15 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
         if (player == Runner.LocalPlayer && playerCount < 4)
         {
             Debug.Log("player spawned");
-            GameManager.instance.players.Add(Runner.Spawn(_player, GameManager.instance.playerSpawns[playerCount].position, GameManager.instance.playerSpawns[playerCount].rotation));
+            GameManager.instance.players.Add(Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation));
+            Debug.Log(GameManager.instance.players.Count);
+            GameManager.instance.PreGame();
+        }
 
-            if (playerCount > 0)
-            {
-                Debug.Log("ready to start");
-                GameManager.instance.startGameButton.SetActive(true);
-            }
+        if (playerCount > 0)
+        {
+            Debug.Log("ready to start");
+            GameManager.instance.startGameButton.SetActive(true);
         }
     }
 }

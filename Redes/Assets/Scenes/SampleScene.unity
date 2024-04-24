@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &5026161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &25719749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 78899468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: -1, z: 0}
+  m_LocalPosition: {x: 4.86, y: -2.07, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -476,6 +476,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 78899469}
   - {fileID: 78899472}
 --- !u!114 &78899472
 MonoBehaviour:
@@ -583,7 +584,7 @@ Transform:
   m_GameObject: {fileID: 98982908}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 1, z: 0}
+  m_LocalPosition: {x: 1.8, y: 1.25, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -605,9 +606,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 247660358
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 98982909}
   - {fileID: 98982912}
 --- !u!114 &98982912
 MonoBehaviour:
@@ -799,7 +801,7 @@ Transform:
   m_GameObject: {fileID: 169160869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.96, y: -0.0800001, z: 0}
+  m_LocalPosition: {x: -1.6, y: 1.56, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -821,9 +823,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2429764936
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 169160870}
   - {fileID: 169160873}
 --- !u!114 &169160873
 MonoBehaviour:
@@ -1004,7 +1007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &284871367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1117,7 +1120,7 @@ Transform:
   m_GameObject: {fileID: 286659078}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: -3.43, y: -1.68, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1139,9 +1142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1459026767
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 286659079}
   - {fileID: 286659082}
 --- !u!114 &286659082
 MonoBehaviour:
@@ -1249,7 +1253,7 @@ Transform:
   m_GameObject: {fileID: 363369103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 0.34, y: 2.05, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1271,9 +1275,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2252664536
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 363369104}
   - {fileID: 363369107}
 --- !u!114 &363369107
 MonoBehaviour:
@@ -1549,7 +1554,7 @@ Transform:
   m_GameObject: {fileID: 443492696}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 0.25, y: -2.63, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1571,9 +1576,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2468146020
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 443492697}
   - {fileID: 443492700}
 --- !u!114 &443492700
 MonoBehaviour:
@@ -1681,7 +1687,7 @@ Transform:
   m_GameObject: {fileID: 473416228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: -3.476, y: 0.204, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1703,9 +1709,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 3927985451
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 473416229}
   - {fileID: 473416232}
 --- !u!114 &473416232
 MonoBehaviour:
@@ -1813,7 +1820,7 @@ Transform:
   m_GameObject: {fileID: 481472907}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 3.33, y: 1.22, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1835,9 +1842,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 969827064
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 481472908}
   - {fileID: 481472911}
 --- !u!114 &481472911
 MonoBehaviour:
@@ -2154,7 +2162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &528712606
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2351,7 +2359,7 @@ Transform:
   m_GameObject: {fileID: 588030819}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 5.72, y: -0.45, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2373,9 +2381,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 550000895
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 588030820}
   - {fileID: 588030823}
 --- !u!114 &588030823
 MonoBehaviour:
@@ -2754,7 +2763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &628910627
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2898,7 +2907,7 @@ Transform:
   m_GameObject: {fileID: 680584391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 1, z: 0}
+  m_LocalPosition: {x: -2.327, y: -0.269, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2923,6 +2932,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 680584392}
   - {fileID: 680584395}
 --- !u!114 &680584395
 MonoBehaviour:
@@ -3030,7 +3040,7 @@ Transform:
   m_GameObject: {fileID: 682635308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: -4.9, y: 1.02, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3055,6 +3065,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 682635309}
   - {fileID: 682635312}
 --- !u!114 &682635312
 MonoBehaviour:
@@ -3246,7 +3257,7 @@ Transform:
   m_GameObject: {fileID: 737398878}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 3.08, y: -1.04, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3268,9 +3279,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 3350844306
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 737398879}
   - {fileID: 737398882}
 --- !u!114 &737398882
 MonoBehaviour:
@@ -3548,7 +3560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &897408160
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3632,7 +3644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &916134024
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3730,17 +3742,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGameButton: {fileID: 1817883873}
-  playerSpawns:
-  - {fileID: 1807310259}
-  - {fileID: 654534368}
-  - {fileID: 869894183}
-  - {fileID: 67948261}
   activePlayer: {fileID: 0}
-  players:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  players: []
   onTable: []
   deckPos: {fileID: 0}
   _allCards:
@@ -3795,7 +3798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &994610738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3963,7 +3966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1053641291
 Transform:
   m_ObjectHideFlags: 0
@@ -4076,7 +4079,7 @@ Transform:
   m_GameObject: {fileID: 1078443883}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: -1.382, y: -1.193, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4098,9 +4101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 340532053
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1078443884}
   - {fileID: 1078443887}
 --- !u!114 &1078443887
 MonoBehaviour:
@@ -4179,7 +4183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1142657952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4415,7 +4419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1176857719
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4499,7 +4503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1224820707
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4696,7 +4700,7 @@ Transform:
   m_GameObject: {fileID: 1233479925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: -4.9, y: -1.57, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4718,9 +4722,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 967747711
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1233479926}
   - {fileID: 1233479929}
 --- !u!114 &1233479929
 MonoBehaviour:
@@ -4799,7 +4804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1254189251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4912,7 +4917,7 @@ Transform:
   m_GameObject: {fileID: 1294753112}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 2.57, y: -3.27, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4934,9 +4939,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 985466798
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1294753113}
   - {fileID: 1294753116}
 --- !u!114 &1294753116
 MonoBehaviour:
@@ -5128,7 +5134,7 @@ Transform:
   m_GameObject: {fileID: 1361145137}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.63, y: -3.3100002, z: 0}
+  m_LocalPosition: {x: -2.61, y: 3.24, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5150,9 +5156,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2160021236
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1361145138}
   - {fileID: 1361145141}
 --- !u!114 &1361145141
 MonoBehaviour:
@@ -5413,6 +5420,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: -659661495653436100, guid: f0901957c79a5cd4e8d50cb655298d46, type: 3}
+  playerSpawns:
+  - {fileID: 1807310259}
+  - {fileID: 654534368}
+  - {fileID: 869894183}
+  - {fileID: 67948261}
 --- !u!1 &1618521585
 GameObject:
   m_ObjectHideFlags: 0
@@ -5429,7 +5441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1618521586
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5513,7 +5525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1620902074
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5597,7 +5609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1798824715
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5929,7 +5941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1826048937
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6210,7 +6222,7 @@ Transform:
   m_GameObject: {fileID: 1893179285}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: -1, z: 0}
+  m_LocalPosition: {x: -9.79, y: -2.23, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6232,9 +6244,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2686442347
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1893179286}
   - {fileID: 1893179289}
 --- !u!114 &1893179289
 MonoBehaviour:
@@ -6426,7 +6439,7 @@ Transform:
   m_GameObject: {fileID: 1940717106}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 1.42, y: -0.82, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6448,9 +6461,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2557194779
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1940717107}
   - {fileID: 1940717110}
 --- !u!114 &1940717110
 MonoBehaviour:
@@ -6529,7 +6543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1971578398
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6841,7 +6855,7 @@ Transform:
   m_GameObject: {fileID: 2099482124}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.18, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6866,6 +6880,7 @@ MonoBehaviour:
   Flags: 1
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 2099482125}
   - {fileID: 2099482128}
 --- !u!114 &2099482128
 MonoBehaviour:
@@ -6944,7 +6959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &2146725549
 SpriteRenderer:
   m_ObjectHideFlags: 0

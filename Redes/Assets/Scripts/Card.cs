@@ -1,8 +1,9 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public class Card : NetworkBehaviour
 {
     [Range(1, 10)]
     public int value;
@@ -10,8 +11,15 @@ public class Card : MonoBehaviour
 
     [SerializeField] Renderer _front, _back;
 
+    float _lerpTime = 1;
+
     float _baseTablePosX = 0.75f;
     float _baseTablePosY = 1;
+
+    Vector3 _goTo;
+    Quaternion _rotateTo;
+
+    float _timer;
 
     public enum Suits
     {
@@ -21,13 +29,24 @@ public class Card : MonoBehaviour
         Oro
     }
 
+    public override void FixedUpdateNetwork()
+    {
+        if (transform.position != _goTo || transform.rotation != _rotateTo)
+        {
+            _timer += Time.deltaTime;
+
+            transform.position = Vector3.Lerp(transform.position, _goTo, _timer / _lerpTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _rotateTo, _timer / _lerpTime);
+        }
+    }
+
     public void PlaceInDeck()
     {
         TurnFaceDown();
         GameManager.instance.deck.Push(this);
 
         var deckPos = GameManager.instance.deckPos;
-        StartCoroutine(MoveAndRotate(deckPos));
+        Move(deckPos);
     }
 
     public void PlaceOnTable()
@@ -56,13 +75,13 @@ public class Card : MonoBehaviour
 
         pos += pos * Mathf.FloorToInt(cardsOnTable * 0.25f);
 
-        StartCoroutine(MoveAndRotate(pos, Quaternion.identity));
+        Move(pos, Quaternion.identity);
     }
 
     public void Deal(Player player)
     {
         // flip only for this player
-        StartCoroutine(MoveAndRotate(player.handPos[player.handSize]));
+        Move(player.handPos[player.handSize]);
         player.BeDealt(this);
     }
 
@@ -82,40 +101,17 @@ public class Card : MonoBehaviour
 
     public void Move(Transform endPos)
     {
-        StartCoroutine(MoveAndRotate(endPos));
+        _timer = 0;
+
+        _goTo = endPos.position;
+        _rotateTo = endPos.rotation;
     }
 
-    IEnumerator MoveAndRotate(Transform endPos)
+    public void Move(Vector3 endPosition, Quaternion endRotation)
     {
-        float startDist = Vector3.Distance(transform.position, endPos.position);
+        _timer = 0;
 
-        while (transform.position != endPos.position)
-        {
-            float currentDist = Vector3.Distance(transform.position, endPos.position);
-
-            float delta = 1 - Mathf.Pow(currentDist / startDist, 5.0f / 9.0f);
-
-            transform.position = Vector3.Lerp(transform.position, endPos.position, delta / startDist);
-            transform.rotation = Quaternion.Slerp(transform.rotation, endPos.rotation, delta / startDist);
-
-            yield return null;
-        }
-    }
-
-    public IEnumerator MoveAndRotate(Vector3 goalPosition, Quaternion goalRotation)
-    {
-        float startDist = Vector3.Distance(transform.position, goalPosition);
-
-        while (transform.position != goalPosition)
-        {
-            float currentDist = Vector3.Distance(transform.position, goalPosition);
-
-            float delta = 1 - Mathf.Pow(currentDist / startDist, 5.0f / 9.0f);
-
-            transform.position = Vector3.MoveTowards(transform.position, goalPosition, delta / startDist);
-            transform.rotation = Quaternion.Slerp(transform.rotation, goalRotation, delta / startDist);
-
-            yield return null;
-        }
+        _goTo = endPosition;
+        _rotateTo = endRotation;
     }
 }
