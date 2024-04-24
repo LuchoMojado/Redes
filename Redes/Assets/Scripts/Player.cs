@@ -14,6 +14,9 @@ public class Player : NetworkBehaviour
 
     public int handSize = 0;
 
+    public Transform deckPos;
+    public Transform earnedCardsPos;
+
     [SerializeField] LayerMask _cardLayer;
 
     private void Update()
@@ -30,10 +33,6 @@ public class Player : NetworkBehaviour
                 SelectCard(hit.transform.GetComponent<Card>());
             }
         }
-
-        Stack<Card> stack = new Stack<Card>();
-
-        stack.
     }
 
     public void BeDealt(Card card)

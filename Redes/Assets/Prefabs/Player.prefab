@@ -50,11 +50,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988151055298cbe43920802ae2c10b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handPos: []
+  handPos:
+  - {fileID: 7087518639535687280}
+  - {fileID: 7238211766368844021}
+  - {fileID: 4180524317355278284}
   handSize: 0
+  deckPos: {fileID: 1243620959687405420}
+  earnedCardsPos: {fileID: 6218284736113413265}
   _cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &8596187048687931647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 3927565168
   ObjectInterest: 1
-  Flags: 327681
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: -659661495653436100}
@@ -191,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 4674527404445942467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0.75, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -222,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 6045778044731647888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 1, z: 0}
+  m_LocalPosition: {x: -0.75, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

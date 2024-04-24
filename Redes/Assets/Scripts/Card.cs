@@ -27,9 +27,7 @@ public class Card : MonoBehaviour
         GameManager.instance.deck.Push(this);
 
         var deckPos = GameManager.instance.deckPos;
-        transform.position = deckPos.position;
-        transform.rotation = deckPos.rotation;
-        //hacer corrutina de movimiento
+        StartCoroutine(MoveAndRotate(deckPos));
     }
 
     public void PlaceOnTable()
@@ -58,15 +56,13 @@ public class Card : MonoBehaviour
 
         pos += pos * Mathf.FloorToInt(cardsOnTable * 0.25f);
 
-        transform.position = pos;
-        transform.rotation = Quaternion.identity;
+        StartCoroutine(MoveAndRotate(pos, Quaternion.identity));
     }
 
     public void Deal(Player player)
     {
         // flip only for this player
-        transform.position = player.handPos[player.handSize].position;
-        transform.rotation = player.handPos[player.handSize].rotation;
+        StartCoroutine(MoveAndRotate(player.handPos[player.handSize]));
         player.BeDealt(this);
     }
 
@@ -82,5 +78,44 @@ public class Card : MonoBehaviour
         //animacion
         _front.enabled = false;
         _back.enabled = true;
+    }
+
+    public void Move(Transform endPos)
+    {
+        StartCoroutine(MoveAndRotate(endPos));
+    }
+
+    IEnumerator MoveAndRotate(Transform endPos)
+    {
+        float startDist = Vector3.Distance(transform.position, endPos.position);
+
+        while (transform.position != endPos.position)
+        {
+            float currentDist = Vector3.Distance(transform.position, endPos.position);
+
+            float delta = 1 - Mathf.Pow(currentDist / startDist, 5.0f / 9.0f);
+
+            transform.position = Vector3.Lerp(transform.position, endPos.position, delta / startDist);
+            transform.rotation = Quaternion.Slerp(transform.rotation, endPos.rotation, delta / startDist);
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator MoveAndRotate(Vector3 goalPosition, Quaternion goalRotation)
+    {
+        float startDist = Vector3.Distance(transform.position, goalPosition);
+
+        while (transform.position != goalPosition)
+        {
+            float currentDist = Vector3.Distance(transform.position, goalPosition);
+
+            float delta = 1 - Mathf.Pow(currentDist / startDist, 5.0f / 9.0f);
+
+            transform.position = Vector3.MoveTowards(transform.position, goalPosition, delta / startDist);
+            transform.rotation = Quaternion.Slerp(transform.rotation, goalRotation, delta / startDist);
+
+            yield return null;
+        }
     }
 }
