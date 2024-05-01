@@ -38,6 +38,7 @@ public class Player : NetworkBehaviour
     public void BeDealt(Card card)
     {
         hand[handSize] = card;
+        card.TurnFaceUp();
         handSize++;
     }
 

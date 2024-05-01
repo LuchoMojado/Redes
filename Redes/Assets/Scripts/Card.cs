@@ -75,6 +75,7 @@ public class Card : NetworkBehaviour
 
         pos += pos * Mathf.FloorToInt(cardsOnTable * 0.25f);
 
+        TurnFaceUp();
         Move(pos, Quaternion.identity);
     }
 

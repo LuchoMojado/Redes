@@ -7042,6 +7042,27 @@ MonoBehaviour:
   - {fileID: 2099482125}
   - {fileID: 1233479926}
   - {fileID: 682635309}
+  - {fileID: 599932893}
+  - {fileID: 333223651}
+  - {fileID: 892509063}
+  - {fileID: 1617511696}
+  - {fileID: 1973591935}
+  - {fileID: 800116298}
+  - {fileID: 639837939}
+  - {fileID: 472249490}
+  - {fileID: 967967425}
+  - {fileID: 381320269}
+  - {fileID: 983075030}
+  - {fileID: 864266378}
+  - {fileID: 2101556559}
+  - {fileID: 997806481}
+  - {fileID: 698571877}
+  - {fileID: 1506244319}
+  - {fileID: 1947354234}
+  - {fileID: 919251033}
+  - {fileID: 306960972}
+  - {fileID: 610057833}
+  - {fileID: 2133646041}
   _preGameDeckPos: {fileID: 2052858049}
 --- !u!4 &937452465
 Transform:
@@ -11011,7 +11032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1817883874
 RectTransform:
   m_ObjectHideFlags: 0
