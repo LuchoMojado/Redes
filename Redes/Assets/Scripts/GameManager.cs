@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
 
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     public void PreGame()
     {
+        //if (!HasStateAuthority) return;
+
         deckPos = _preGameDeckPos;
 
         foreach (var item in _allCards)
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             var card = deck.Pop();
-            card.TurnFaceUp();
+            card.SetVisibility(true);
             card.PlaceOnTable();
             onTable.Add(card);
         }

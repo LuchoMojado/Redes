@@ -644,7 +644,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 78899469}
   - {fileID: 78899472}
 --- !u!114 &78899472
 MonoBehaviour:
@@ -777,7 +776,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 98982909}
   - {fileID: 98982912}
 --- !u!114 &98982912
 MonoBehaviour:
@@ -1162,7 +1160,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 169160870}
   - {fileID: 169160873}
 --- !u!114 &169160873
 MonoBehaviour:
@@ -1985,7 +1982,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 286659079}
   - {fileID: 286659082}
 --- !u!114 &286659082
 MonoBehaviour:
@@ -2130,7 +2126,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 306960972}
   - {fileID: 306960971}
 --- !u!114 &306960971
 MonoBehaviour:
@@ -2263,7 +2258,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 333223651}
   - {fileID: 333223650}
 --- !u!114 &333223650
 MonoBehaviour:
@@ -2636,7 +2630,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 363369104}
   - {fileID: 363369107}
 --- !u!114 &363369107
 MonoBehaviour:
@@ -2781,7 +2774,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 381320269}
   - {fileID: 381320268}
 --- !u!114 &381320268
 MonoBehaviour:
@@ -3238,7 +3230,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 443492697}
   - {fileID: 443492700}
 --- !u!114 &443492700
 MonoBehaviour:
@@ -3383,7 +3374,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 472249490}
   - {fileID: 472249489}
 --- !u!114 &472249489
 MonoBehaviour:
@@ -3504,7 +3494,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 473416229}
   - {fileID: 473416232}
 --- !u!114 &473416232
 MonoBehaviour:
@@ -3637,7 +3626,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 481472908}
   - {fileID: 481472911}
 --- !u!114 &481472911
 MonoBehaviour:
@@ -4260,7 +4248,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 588030820}
   - {fileID: 588030823}
 --- !u!114 &588030823
 MonoBehaviour:
@@ -4489,7 +4476,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 599932893}
   - {fileID: 599932892}
 --- !u!114 &599932892
 MonoBehaviour:
@@ -4622,7 +4608,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 610057833}
   - {fileID: 610057832}
 --- !u!114 &610057832
 MonoBehaviour:
@@ -5055,7 +5040,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 639837939}
   - {fileID: 639837938}
 --- !u!114 &639837938
 MonoBehaviour:
@@ -5207,7 +5191,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 680584392}
   - {fileID: 680584395}
 --- !u!114 &680584395
 MonoBehaviour:
@@ -5340,7 +5323,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 682635309}
   - {fileID: 682635312}
 --- !u!114 &682635312
 MonoBehaviour:
@@ -5485,7 +5467,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 698571877}
   - {fileID: 698571876}
 --- !u!114 &698571876
 MonoBehaviour:
@@ -5690,7 +5671,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 737398879}
   - {fileID: 737398882}
 --- !u!114 &737398882
 MonoBehaviour:
@@ -5919,7 +5899,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 800116298}
   - {fileID: 800116297}
 --- !u!114 &800116297
 MonoBehaviour:
@@ -6304,7 +6283,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 864266378}
   - {fileID: 864266377}
 --- !u!114 &864266377
 MonoBehaviour:
@@ -6552,7 +6530,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 892509063}
   - {fileID: 892509062}
 --- !u!114 &892509062
 MonoBehaviour:
@@ -6937,7 +6914,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 919251033}
   - {fileID: 919251032}
 --- !u!114 &919251032
 MonoBehaviour:
@@ -6998,6 +6974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 937452465}
   - component: {fileID: 937452464}
+  - component: {fileID: 937452466}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7079,6 +7056,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &937452466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937452463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1327702195
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
 --- !u!1 &967967421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7161,7 +7155,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 967967425}
   - {fileID: 967967424}
 --- !u!114 &967967424
 MonoBehaviour:
@@ -7294,7 +7287,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 983075030}
   - {fileID: 983075029}
 --- !u!114 &983075029
 MonoBehaviour:
@@ -7511,7 +7503,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 997806481}
   - {fileID: 997806480}
 --- !u!114 &997806480
 MonoBehaviour:
@@ -7968,7 +7959,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1078443884}
   - {fileID: 1078443887}
 --- !u!114 &1078443887
 MonoBehaviour:
@@ -8757,7 +8747,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1233479926}
   - {fileID: 1233479929}
 --- !u!114 &1233479929
 MonoBehaviour:
@@ -9058,7 +9047,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1294753113}
   - {fileID: 1294753116}
 --- !u!114 &1294753116
 MonoBehaviour:
@@ -9275,7 +9263,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1361145138}
   - {fileID: 1361145141}
 --- !u!114 &1361145141
 MonoBehaviour:
@@ -10043,7 +10030,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1506244319}
   - {fileID: 1506244318}
 --- !u!114 &1506244318
 MonoBehaviour:
@@ -10260,7 +10246,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1617511696}
   - {fileID: 1617511695}
 --- !u!114 &1617511695
 MonoBehaviour:
@@ -11553,7 +11538,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1893179286}
   - {fileID: 1893179289}
 --- !u!114 &1893179289
 MonoBehaviour:
@@ -11938,7 +11922,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1940717107}
   - {fileID: 1940717110}
 --- !u!114 &1940717110
 MonoBehaviour:
@@ -12083,7 +12066,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1947354234}
   - {fileID: 1947354233}
 --- !u!114 &1947354233
 MonoBehaviour:
@@ -12300,7 +12282,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1973591935}
   - {fileID: 1973591934}
 --- !u!114 &1973591934
 MonoBehaviour:
@@ -12956,7 +12937,6 @@ MonoBehaviour:
   Flags: 1
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2099482125}
   - {fileID: 2099482128}
 --- !u!114 &2099482128
 MonoBehaviour:
@@ -13101,7 +13081,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2101556559}
   - {fileID: 2101556558}
 --- !u!114 &2101556558
 MonoBehaviour:
@@ -13234,7 +13213,6 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2133646041}
   - {fileID: 2133646040}
 --- !u!114 &2133646040
 MonoBehaviour:

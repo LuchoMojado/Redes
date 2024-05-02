@@ -29,6 +29,27 @@ public class Card : NetworkBehaviour
         Oro
     }
 
+    [Networked, OnChangedRender(nameof(TurnCard))]
+    public bool visible { get; set; }
+
+    void TurnCard()
+    {
+        if (visible)
+        {
+            TurnFaceUp();
+        }
+        else
+        {
+            TurnFaceDown();
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void SetVisibility(bool isVisible)
+    {
+        visible = isVisible;
+    }
+
     public override void FixedUpdateNetwork()
     {
         if (transform.position != _goTo || transform.rotation != _rotateTo)
