@@ -28,9 +28,9 @@ public class Card : NetworkBehaviour
         Copa,
         Oro
     }
-
+    
     [Networked, OnChangedRender(nameof(TurnCard))]
-    public bool visible { get; set; }
+    public bool visible { get; set; } = true;
 
     void TurnCard()
     {
@@ -45,9 +45,15 @@ public class Card : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void SetVisibility(bool isVisible)
+    public void RpcSetVisibility(bool isVisible)
     {
         visible = isVisible;
+    }
+
+    private void Awake()
+    {
+        _goTo = transform.position;
+        _rotateTo = transform.rotation;
     }
 
     public override void FixedUpdateNetwork()
@@ -63,7 +69,6 @@ public class Card : NetworkBehaviour
 
     public void PlaceInDeck()
     {
-        TurnFaceDown();
         GameManager.instance.deck.Push(this);
 
         var deckPos = GameManager.instance.deckPos;

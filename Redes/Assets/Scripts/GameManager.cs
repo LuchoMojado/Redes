@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using System.Linq;
 
 public class GameManager : NetworkBehaviour
 {
@@ -22,6 +23,14 @@ public class GameManager : NetworkBehaviour
 
     int _dealerIndex = 0;
 
+    //[Networked, OnChangedRender(nameof(PlayerJoined)), Capacity(4)]
+    //public NetworkArray<Player> joinedPlayers { get; set; }
+    //
+    //void PlayerJoined()
+    //{
+    //    players.Add(joinedPlayers[Runner.ActivePlayers.Count() - 1]);
+    //}
+
     void Awake()
     {
         if (instance != null) Destroy(gameObject);
@@ -36,6 +45,7 @@ public class GameManager : NetworkBehaviour
 
         foreach (var item in _allCards)
         {
+            item.RpcSetVisibility(false);
             item.PlaceInDeck();
         }
 
@@ -44,11 +54,14 @@ public class GameManager : NetworkBehaviour
 
     public void StartGame()
     {
+        if (!HasStateAuthority) return;
+
         _dealerIndex = Random.Range(0, players.Count);
+        deckPos = players[_dealerIndex].deckPos;
 
         foreach (var item in deck)
         {
-            item.Move(players[_dealerIndex].deckPos);
+            item.Move(deckPos);
         }
 
         StartRound();
@@ -56,12 +69,14 @@ public class GameManager : NetworkBehaviour
 
     void StartRound()
     {
+        if (!HasStateAuthority) return;
+
         StartHand();
 
         for (int i = 0; i < 4; i++)
         {
             var card = deck.Pop();
-            card.SetVisibility(true);
+            card.RpcSetVisibility(true);
             card.PlaceOnTable();
             onTable.Add(card);
         }
@@ -69,6 +84,8 @@ public class GameManager : NetworkBehaviour
 
     void StartHand()
     {
+        if (!HasStateAuthority) return;
+
         var k = _dealerIndex + 1;
 
         for (int i = 0; i < 3; i++)

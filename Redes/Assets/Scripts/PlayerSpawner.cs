@@ -16,8 +16,9 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 
         if (player == Runner.LocalPlayer && playerCount < 4)
         {
-            GameManager.instance.players.Add(Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation));
-            Debug.Log(GameManager.instance.players.Count);
+            //GameManager.instance.players.Add(Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation));
+            //Debug.Log(GameManager.instance.players.Count);
+            Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation);
             GameManager.instance.PreGame();
         }
 

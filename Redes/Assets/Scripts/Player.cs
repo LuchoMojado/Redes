@@ -19,6 +19,11 @@ public class Player : NetworkBehaviour
 
     [SerializeField] LayerMask _cardLayer;
 
+    public override void Spawned()
+    {
+        GameManager.instance.players.Add(this);
+    }
+
     private void Update()
     {
         if (GameManager.instance.activePlayer != this) return;
