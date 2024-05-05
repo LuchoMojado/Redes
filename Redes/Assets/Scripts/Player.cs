@@ -20,6 +20,12 @@ public class Player : NetworkBehaviour
 
     [SerializeField] LayerMask _cardLayer;
 
+    [Networked]
+    public bool _myTurn { get; set; } = false;
+
+    bool _clicked = false;
+    Ray _ray;
+
     public override void Spawned()
     {
         GameManager.instance.players.Add(this);
@@ -28,17 +34,37 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.activePlayer != this) return;
+        if (!_myTurn)
+        {
+            print("no soy el player activo");
+            return;
+        }
+
+        print("soy el player activo");
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, _cardLayer);
+            _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            _clicked = true;
+            print("click en update");
+        }
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (_clicked)
+        {
+            print("click en network update");
+
+            RaycastHit2D hit = Runner.GetPhysicsScene2D().Raycast(_ray.origin, _ray.direction, Mathf.Infinity, _cardLayer);
 
             if (hit.collider != null)
             {
+                print("hit");
                 SelectCard(hit.transform.GetComponent<Card>());
             }
+
+            _clicked = false;
         }
     }
 
@@ -50,34 +76,51 @@ public class Player : NetworkBehaviour
         handSize++;
     }
 
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcStartTurn()
+    {
+        _myTurn = true;
+    }
+
     void SelectCard(Card card)
     {
+        print("entramos a select");
+
         bool inHand = hand.Contains(card);
 
-        if (!GameManager.instance.onTable.Contains(card) || !inHand) return;
+        print("esta en mi mano");
+
+        if (!GameManager.instance.onTable.Contains(card) && !inHand) return;
+
+        print("la carta es valida");
 
         if (selectedCards.Contains(card))
         {
+            print("la carta ya estaba seleccionada, la deselecciono");
             selectedCards.Remove(card);
             card.Deselect();
         }
         else
         {
+            print("selecciono la carta");
             selectedCards.Add(card);
             card.Select();
         }
 
-        if (hand.Contains(card))
+        if (inHand)
         {
-            inHand = true;
-
             var selectedInHand = hand.Intersect(selectedCards);
 
             if (selectedInHand.Count() > 1)
             {
                 foreach (var item in selectedInHand)
                 {
-                    if (item != card) selectedCards.Remove(item);
+                    if (item != card)
+                    {
+                        print("otra carta en la mano estaba seleccionada, deselecciono");
+                        selectedCards.Remove(item);
+                        item.Deselect();
+                    }
                 }
             }
         }

@@ -10,10 +10,9 @@ public class GameManager : NetworkBehaviour
 
     public GameObject startGameButton;
 
-    [HideInInspector] public Player activePlayer = null;
     public List<Player> players = new List<Player>();
 
-    [HideInInspector] public List<Card> onTable = new List<Card>();
+    public List<Card> onTable = new List<Card>();
     public Stack<Card> deck = new Stack<Card>();
 
     [HideInInspector] public Transform deckPos;
@@ -33,12 +32,16 @@ public class GameManager : NetworkBehaviour
     //    players.Add(joinedPlayers[Runner.ActivePlayers.Count() - 1]);
     //}
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RpcSetOnTable(Card card)
+    {
+        onTable.Add(card);
+    }
+
     void Awake()
     {
         if (instance != null) Destroy(gameObject);
         instance = this;
-
-        //PreGame();
     }
 
     public void SyncCards()
@@ -66,11 +69,10 @@ public class GameManager : NetworkBehaviour
         deck = deck.Shuffle().ToStack();
     }
 
-    public void Start()
+    public void StartButton()
     {
         if (!HasStateAuthority) return;
         StartCoroutine(StartGame());
-        //startGameButton.SetActive(false);
     }
 
     public IEnumerator StartGame()
@@ -103,7 +105,6 @@ public class GameManager : NetworkBehaviour
             var card = deck.Pop();
             card.RpcSetVisibility(Card.Visibility.Visible);
             card.PlaceOnTable();
-            onTable.Add(card);
 
             while (card.moving) yield return null;
         }
@@ -121,10 +122,7 @@ public class GameManager : NetworkBehaviour
         {
             for (int j = 0; j < players.Count; j++)
             {
-                if (k >= players.Count)
-                {
-                    k = 0;
-                }
+                if (k >= players.Count) k = 0;
 
                 var card = deck.Pop();
                 
@@ -135,6 +133,9 @@ public class GameManager : NetworkBehaviour
                 k++;
             }
         }
+
+        if (k >= players.Count) k = 0;
+        players[k].RpcStartTurn();
 
         _wait = false;
     }

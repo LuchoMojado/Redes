@@ -2395,12 +2395,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 306960974}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &333223647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,12 +3868,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 472249492}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &473416228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,12 +4045,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 473416234}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &481472907
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,12 +4889,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 588030825}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &596087539
 GameObject:
   m_ObjectHideFlags: 0
@@ -8075,7 +8075,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGameButton: {fileID: 1817883873}
-  activePlayer: {fileID: 0}
   players: []
   onTable: []
   deckPos: {fileID: 0}
@@ -12570,7 +12569,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 937452464}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Start
+        m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15058,12 +15057,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 2133646043}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &2146725548
 GameObject:
   m_ObjectHideFlags: 0

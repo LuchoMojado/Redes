@@ -50,10 +50,10 @@ public class Card : NetworkBehaviour
         switch (visibility)
         {
             case Visibility.Visible:
-                _anim.SetTrigger("TurnUp");
+                StartCoroutine(TurnUpAnim());
                 break;
             case Visibility.Hidden:
-                _anim.SetTrigger("TurnDown");
+                StartCoroutine(TurnDownAnim());
                 break;
             case Visibility.Syncing:
                 StartCoroutine(SyncVisibility());
@@ -80,7 +80,7 @@ public class Card : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (transform.position != _goTo || transform.rotation != _rotateTo)
+        if (Vector3.Distance(transform.position, _goTo) > 0.01f || transform.rotation != _rotateTo)
         {
             _timer += Runner.DeltaTime;
 
@@ -106,7 +106,7 @@ public class Card : NetworkBehaviour
         Vector3 pos = Vector3.zero;
 
         int cardsOnTable = GameManager.instance.onTable.Count;
-
+        print("la cantidad de cartas en la mesa es: " + cardsOnTable);
         int placement = cardsOnTable % 4;
 
         switch (placement)
@@ -115,24 +115,25 @@ public class Card : NetworkBehaviour
                 pos = new Vector3(-_baseTablePosX, _baseTablePosY);
                 break;
             case 1:
-                pos = new Vector3(_baseTablePosX, _baseTablePosY);
+                pos = new Vector3(-_baseTablePosX, -_baseTablePosY);
                 break;
             case 2:
-                pos = new Vector3(-_baseTablePosX, -_baseTablePosY);
+                pos = new Vector3(_baseTablePosX, _baseTablePosY);
                 break;
             case 3:
                 pos = new Vector3(_baseTablePosX, -_baseTablePosY);
                 break;
         }
 
-        pos += pos * Mathf.FloorToInt(cardsOnTable * 0.25f);
-
+        pos += new Vector3(pos.x * Mathf.FloorToInt(cardsOnTable * 0.25f) * 2, 0);
+        
         Move(pos, Quaternion.identity);
+
+        GameManager.instance.RpcSetOnTable(this);
     }
 
     public void Deal(Player player)
     {
-        // flip only for this player
         Move(player.handPos[player.handSize]);
         player.RpcBeDealt(this);
     }
@@ -140,11 +141,13 @@ public class Card : NetworkBehaviour
     public void Select()
     {
         _anim.SetBool("Selected", true);
+        print("me seleccionaron");
     }
 
     public void Deselect()
     {
         _anim.SetBool("Selected", false);
+        print("me deseleccionaron");
     }
 
     public void TurnFaceUp()
@@ -177,6 +180,24 @@ public class Card : NetworkBehaviour
         _rotateTo = endRotation;
 
         moving = true;
+    }
+
+    IEnumerator TurnUpAnim()
+    {
+        _anim.SetTrigger("TurnUp");
+
+        yield return new WaitForSeconds(_anim.GetCurrentAnimatorClipInfo(0).Length * 0.5f);
+
+        TurnFaceUp();
+    }
+
+    IEnumerator TurnDownAnim()
+    {
+        _anim.SetTrigger("TurnDown");
+
+        yield return new WaitForSeconds(_anim.GetCurrentAnimatorClipInfo(0).Length * 0.5f);
+
+        TurnFaceDown();
     }
 
     IEnumerator SyncVisibility()

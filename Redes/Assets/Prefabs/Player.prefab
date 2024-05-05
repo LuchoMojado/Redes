@@ -55,12 +55,13 @@ MonoBehaviour:
   - {fileID: 7087518639535687280}
   - {fileID: 7238211766368844021}
   - {fileID: 4180524317355278284}
-  handSize: 0
+  _handSize: 0
   deckPos: {fileID: 1243620959687405420}
   earnedCardsPos: {fileID: 6218284736113413265}
   _cardLayer:
     serializedVersion: 2
     m_Bits: 64
+  __myTurn: 0
 --- !u!114 &8596187048687931647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 1529325933615542024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1, z: 0}
+  m_LocalPosition: {x: 3.25, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -183,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 2137986810948849723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 1, z: 0}
+  m_LocalPosition: {x: -3.25, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -214,7 +215,7 @@ Transform:
   m_GameObject: {fileID: 4674527404445942467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 1, z: 0}
+  m_LocalPosition: {x: 1.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -245,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 6045778044731647888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 1, z: 0}
+  m_LocalPosition: {x: -1.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
