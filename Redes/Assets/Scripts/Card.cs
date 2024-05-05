@@ -11,6 +11,8 @@ public class Card : NetworkBehaviour
 
     [SerializeField] Renderer _front, _back;
 
+    Animator _anim;
+
     float _lerpTime = 1;
 
     float _baseTablePosX = 0.75f;
@@ -21,6 +23,8 @@ public class Card : NetworkBehaviour
 
     float _timer;
 
+    public bool moving;
+
     public enum Suits
     {
         Espada,
@@ -28,42 +32,64 @@ public class Card : NetworkBehaviour
         Copa,
         Oro
     }
-    
+
+    public enum Visibility
+    {
+        Visible,
+        Hidden,
+        Syncing
+    }
+
+    Visibility _wasVisible;
+
     [Networked, OnChangedRender(nameof(TurnCard))]
-    public bool visible { get; set; } = true;
+    public Visibility visibility { get; set; }
 
     void TurnCard()
     {
-        if (visible)
+        switch (visibility)
         {
-            TurnFaceUp();
-        }
-        else
-        {
-            TurnFaceDown();
+            case Visibility.Visible:
+                _anim.SetTrigger("TurnUp");
+                break;
+            case Visibility.Hidden:
+                _anim.SetTrigger("TurnDown");
+                break;
+            case Visibility.Syncing:
+                StartCoroutine(SyncVisibility());
+                break;
+            default:
+                break;
         }
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RpcSetVisibility(bool isVisible)
+    public void RpcSetVisibility(Visibility visible)
     {
-        visible = isVisible;
+        _wasVisible = visibility;
+        visibility = visible;
     }
 
     private void Awake()
     {
         _goTo = transform.position;
         _rotateTo = transform.rotation;
+
+        _anim = GetComponent<Animator>();
     }
 
     public override void FixedUpdateNetwork()
     {
         if (transform.position != _goTo || transform.rotation != _rotateTo)
         {
-            _timer += Time.deltaTime;
+            _timer += Runner.DeltaTime;
 
             transform.position = Vector3.Lerp(transform.position, _goTo, _timer / _lerpTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, _rotateTo, _timer / _lerpTime);
+        }
+        else
+        {
+            moving = false;
         }
     }
 
@@ -101,7 +127,6 @@ public class Card : NetworkBehaviour
 
         pos += pos * Mathf.FloorToInt(cardsOnTable * 0.25f);
 
-        TurnFaceUp();
         Move(pos, Quaternion.identity);
     }
 
@@ -109,19 +134,27 @@ public class Card : NetworkBehaviour
     {
         // flip only for this player
         Move(player.handPos[player.handSize]);
-        player.BeDealt(this);
+        player.RpcBeDealt(this);
+    }
+
+    public void Select()
+    {
+        _anim.SetBool("Selected", true);
+    }
+
+    public void Deselect()
+    {
+        _anim.SetBool("Selected", false);
     }
 
     public void TurnFaceUp()
     {
-        //animacion
         _front.enabled = true;
         _back.enabled = false;
     }
 
     public void TurnFaceDown()
     {
-        //animacion
         _front.enabled = false;
         _back.enabled = true;
     }
@@ -132,6 +165,8 @@ public class Card : NetworkBehaviour
 
         _goTo = endPos.position;
         _rotateTo = endPos.rotation;
+
+        moving = true;
     }
 
     public void Move(Vector3 endPosition, Quaternion endRotation)
@@ -140,5 +175,15 @@ public class Card : NetworkBehaviour
 
         _goTo = endPosition;
         _rotateTo = endRotation;
+
+        moving = true;
+    }
+
+    IEnumerator SyncVisibility()
+    {
+        print("start sync");
+        yield return new WaitForSeconds(0.4f);
+        print("finished sync");
+        RpcSetVisibility(Visibility.Hidden);
     }
 }

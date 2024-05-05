@@ -568,7 +568,7 @@ Transform:
   m_GameObject: {fileID: 67948260}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -10.75, y: 0, z: 0}
+  m_LocalPosition: {x: -9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -587,6 +587,8 @@ GameObject:
   - component: {fileID: 78899472}
   - component: {fileID: 78899471}
   - component: {fileID: 78899473}
+  - component: {fileID: 78899474}
+  - component: {fileID: 78899475}
   m_Layer: 6
   m_Name: 5Copa
   m_TagString: Untagged
@@ -610,7 +612,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1329391075}
   _back: {fileID: 284871367}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &78899470
 Transform:
   m_ObjectHideFlags: 0
@@ -647,6 +650,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 78899469}
   - {fileID: 78899472}
+  - {fileID: 78899475}
 --- !u!114 &78899472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +712,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &78899474
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78899468}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &78899475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78899468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &98982908
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,6 +764,8 @@ GameObject:
   - component: {fileID: 98982912}
   - component: {fileID: 98982911}
   - component: {fileID: 98982913}
+  - component: {fileID: 98982914}
+  - component: {fileID: 98982915}
   m_Layer: 6
   m_Name: 3Copa
   m_TagString: Untagged
@@ -744,7 +789,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 502973052}
   _back: {fileID: 1224820707}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &98982910
 Transform:
   m_ObjectHideFlags: 0
@@ -781,6 +827,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 98982909}
   - {fileID: 98982912}
+  - {fileID: 98982915}
 --- !u!114 &98982912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,6 +889,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &98982914
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98982908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &98982915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98982908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 98982914}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &105511326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1193,8 @@ GameObject:
   - component: {fileID: 169160873}
   - component: {fileID: 169160872}
   - component: {fileID: 169160874}
+  - component: {fileID: 169160875}
+  - component: {fileID: 169160876}
   m_Layer: 6
   m_Name: 4Espada
   m_TagString: Untagged
@@ -1130,7 +1218,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1038324346}
   _back: {fileID: 628910627}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &169160871
 Transform:
   m_ObjectHideFlags: 0
@@ -1167,6 +1256,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 169160870}
   - {fileID: 169160873}
+  - {fileID: 169160876}
 --- !u!114 &169160873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,6 +1318,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &169160875
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169160869}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &169160876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169160869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &206038615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,6 +2060,8 @@ GameObject:
   - component: {fileID: 286659082}
   - component: {fileID: 286659081}
   - component: {fileID: 286659083}
+  - component: {fileID: 286659084}
+  - component: {fileID: 286659085}
   m_Layer: 6
   m_Name: 2Oro
   m_TagString: Untagged
@@ -1954,7 +2085,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 110033698}
   _back: {fileID: 1826048937}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &286659080
 Transform:
   m_ObjectHideFlags: 0
@@ -1991,6 +2123,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 286659079}
   - {fileID: 286659082}
+  - {fileID: 286659085}
 --- !u!114 &286659082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2052,6 +2185,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &286659084
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286659078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &286659085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286659078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &306960968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2237,8 @@ GameObject:
   - component: {fileID: 306960971}
   - component: {fileID: 306960970}
   - component: {fileID: 306960969}
+  - component: {fileID: 306960974}
+  - component: {fileID: 306960975}
   m_Layer: 6
   m_Name: 10Espada
   m_TagString: Untagged
@@ -2136,6 +2310,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 306960972}
   - {fileID: 306960971}
+  - {fileID: 306960975}
 --- !u!114 &306960971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,7 +2343,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 390900902}
   _back: {fileID: 1403384307}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &306960973
 Transform:
   m_ObjectHideFlags: 0
@@ -2186,6 +2362,45 @@ Transform:
   - {fileID: 1403384308}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &306960974
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306960968}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &306960975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306960968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &333223647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,6 +2414,8 @@ GameObject:
   - component: {fileID: 333223650}
   - component: {fileID: 333223649}
   - component: {fileID: 333223648}
+  - component: {fileID: 333223653}
+  - component: {fileID: 333223654}
   m_Layer: 6
   m_Name: 10Oro
   m_TagString: Untagged
@@ -2270,6 +2487,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 333223651}
   - {fileID: 333223650}
+  - {fileID: 333223654}
 --- !u!114 &333223650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,7 +2520,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 1657988964}
   _back: {fileID: 848558501}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &333223652
 Transform:
   m_ObjectHideFlags: 0
@@ -2320,6 +2539,45 @@ Transform:
   - {fileID: 848558502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &333223653
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333223647}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &333223654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333223647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &339389797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,6 +2843,8 @@ GameObject:
   - component: {fileID: 363369107}
   - component: {fileID: 363369106}
   - component: {fileID: 363369108}
+  - component: {fileID: 363369109}
+  - component: {fileID: 363369110}
   m_Layer: 6
   m_Name: 3Espada
   m_TagString: Untagged
@@ -2608,7 +2868,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1894799629}
   _back: {fileID: 916134024}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &363369105
 Transform:
   m_ObjectHideFlags: 0
@@ -2645,6 +2906,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 363369104}
   - {fileID: 363369107}
+  - {fileID: 363369110}
 --- !u!114 &363369107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2706,6 +2968,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &363369109
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363369103}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &363369110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363369103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &381320265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,6 +3020,8 @@ GameObject:
   - component: {fileID: 381320268}
   - component: {fileID: 381320267}
   - component: {fileID: 381320266}
+  - component: {fileID: 381320271}
+  - component: {fileID: 381320272}
   m_Layer: 6
   m_Name: 6Basto
   m_TagString: Untagged
@@ -2790,6 +3093,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 381320269}
   - {fileID: 381320268}
+  - {fileID: 381320272}
 --- !u!114 &381320268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2822,7 +3126,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 1928722673}
   _back: {fileID: 1754966101}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &381320270
 Transform:
   m_ObjectHideFlags: 0
@@ -2840,6 +3145,45 @@ Transform:
   - {fileID: 1754966102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &381320271
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381320265}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &381320272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381320265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &390900901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,6 +3533,8 @@ GameObject:
   - component: {fileID: 443492700}
   - component: {fileID: 443492699}
   - component: {fileID: 443492701}
+  - component: {fileID: 443492702}
+  - component: {fileID: 443492703}
   m_Layer: 6
   m_Name: 7Espada
   m_TagString: Untagged
@@ -3212,7 +3558,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1830033660}
   _back: {fileID: 994610738}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &443492698
 Transform:
   m_ObjectHideFlags: 0
@@ -3249,6 +3596,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 443492697}
   - {fileID: 443492700}
+  - {fileID: 443492703}
 --- !u!114 &443492700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,6 +3658,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &443492702
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443492696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &443492703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443492696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &472249486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,6 +3710,8 @@ GameObject:
   - component: {fileID: 472249489}
   - component: {fileID: 472249488}
   - component: {fileID: 472249487}
+  - component: {fileID: 472249492}
+  - component: {fileID: 472249493}
   m_Layer: 6
   m_Name: 4Basto
   m_TagString: Untagged
@@ -3394,6 +3783,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 472249490}
   - {fileID: 472249489}
+  - {fileID: 472249493}
 --- !u!114 &472249489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3426,7 +3816,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 843847128}
   _back: {fileID: 900442718}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &472249491
 Transform:
   m_ObjectHideFlags: 0
@@ -3444,6 +3835,45 @@ Transform:
   - {fileID: 900442719}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &472249492
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472249486}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &472249493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472249486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &473416228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,6 +3887,8 @@ GameObject:
   - component: {fileID: 473416232}
   - component: {fileID: 473416231}
   - component: {fileID: 473416233}
+  - component: {fileID: 473416234}
+  - component: {fileID: 473416235}
   m_Layer: 6
   m_Name: 1Espada
   m_TagString: Untagged
@@ -3480,7 +3912,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 596087540}
   _back: {fileID: 1176857719}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &473416230
 Transform:
   m_ObjectHideFlags: 0
@@ -3517,6 +3950,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 473416229}
   - {fileID: 473416232}
+  - {fileID: 473416235}
 --- !u!114 &473416232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,6 +4012,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &473416234
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473416228}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &473416235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473416228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &481472907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3591,6 +4064,8 @@ GameObject:
   - component: {fileID: 481472911}
   - component: {fileID: 481472910}
   - component: {fileID: 481472912}
+  - component: {fileID: 481472913}
+  - component: {fileID: 481472914}
   m_Layer: 6
   m_Name: 6Espada
   m_TagString: Untagged
@@ -3614,7 +4089,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 3296870}
   _back: {fileID: 2146725549}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &481472909
 Transform:
   m_ObjectHideFlags: 0
@@ -3651,6 +4127,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 481472908}
   - {fileID: 481472911}
+  - {fileID: 481472914}
 --- !u!114 &481472911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3712,6 +4189,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &481472913
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481472907}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &481472914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481472907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &502973051
 GameObject:
   m_ObjectHideFlags: 0
@@ -4215,6 +4731,8 @@ GameObject:
   - component: {fileID: 588030823}
   - component: {fileID: 588030822}
   - component: {fileID: 588030824}
+  - component: {fileID: 588030825}
+  - component: {fileID: 588030826}
   m_Layer: 6
   m_Name: 7Copa
   m_TagString: Untagged
@@ -4238,7 +4756,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1822681440}
   _back: {fileID: 25719749}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &588030821
 Transform:
   m_ObjectHideFlags: 0
@@ -4275,6 +4794,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 588030820}
   - {fileID: 588030823}
+  - {fileID: 588030826}
 --- !u!114 &588030823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4336,6 +4856,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &588030825
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588030819}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &588030826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588030819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &596087539
 GameObject:
   m_ObjectHideFlags: 0
@@ -4433,6 +4992,8 @@ GameObject:
   - component: {fileID: 599932892}
   - component: {fileID: 599932891}
   - component: {fileID: 599932890}
+  - component: {fileID: 599932895}
+  - component: {fileID: 599932896}
   m_Layer: 6
   m_Name: 1Oro
   m_TagString: Untagged
@@ -4504,6 +5065,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 599932893}
   - {fileID: 599932892}
+  - {fileID: 599932896}
 --- !u!114 &599932892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4536,7 +5098,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 2032968423}
   _back: {fileID: 1415528209}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &599932894
 Transform:
   m_ObjectHideFlags: 0
@@ -4554,6 +5117,45 @@ Transform:
   - {fileID: 1415528210}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &599932895
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599932889}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &599932896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599932889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &610057829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4567,6 +5169,8 @@ GameObject:
   - component: {fileID: 610057832}
   - component: {fileID: 610057831}
   - component: {fileID: 610057830}
+  - component: {fileID: 610057835}
+  - component: {fileID: 610057836}
   m_Layer: 6
   m_Name: 11Espada
   m_TagString: Untagged
@@ -4638,6 +5242,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 610057833}
   - {fileID: 610057832}
+  - {fileID: 610057836}
 --- !u!114 &610057832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4670,7 +5275,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1445912889}
   _back: {fileID: 1027547722}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &610057834
 Transform:
   m_ObjectHideFlags: 0
@@ -4688,6 +5294,45 @@ Transform:
   - {fileID: 1027547723}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &610057835
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610057829}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &610057836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610057829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &613481519
 GameObject:
   m_ObjectHideFlags: 0
@@ -5001,6 +5646,8 @@ GameObject:
   - component: {fileID: 639837938}
   - component: {fileID: 639837937}
   - component: {fileID: 639837936}
+  - component: {fileID: 639837941}
+  - component: {fileID: 639837942}
   m_Layer: 6
   m_Name: 3Basto
   m_TagString: Untagged
@@ -5072,6 +5719,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 639837939}
   - {fileID: 639837938}
+  - {fileID: 639837942}
 --- !u!114 &639837938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5104,7 +5752,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 2097188509}
   _back: {fileID: 353445666}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &639837940
 Transform:
   m_ObjectHideFlags: 0
@@ -5122,6 +5771,45 @@ Transform:
   - {fileID: 353445667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &639837941
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639837935}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &639837942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639837935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &654534367
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5835,7 @@ Transform:
   m_GameObject: {fileID: 654534367}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 10.75, y: 0, z: 0}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5166,6 +5854,8 @@ GameObject:
   - component: {fileID: 680584395}
   - component: {fileID: 680584394}
   - component: {fileID: 680584396}
+  - component: {fileID: 680584397}
+  - component: {fileID: 680584398}
   m_Layer: 6
   m_Name: 2Copa
   m_TagString: Untagged
@@ -5189,7 +5879,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1979497172}
   _back: {fileID: 1053641292}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &680584393
 Transform:
   m_ObjectHideFlags: 0
@@ -5199,7 +5890,7 @@ Transform:
   m_GameObject: {fileID: 680584391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.327, y: -0.269, z: 0}
+  m_LocalPosition: {x: -7, y: -3.11, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5226,6 +5917,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 680584392}
   - {fileID: 680584395}
+  - {fileID: 680584398}
 --- !u!114 &680584395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5287,6 +5979,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &680584397
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680584391}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &680584398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680584391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 680584397}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &682635308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5300,6 +6031,8 @@ GameObject:
   - component: {fileID: 682635312}
   - component: {fileID: 682635311}
   - component: {fileID: 682635313}
+  - component: {fileID: 682635314}
+  - component: {fileID: 682635315}
   m_Layer: 6
   m_Name: 7Oro
   m_TagString: Untagged
@@ -5323,7 +6056,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 714228940}
   _back: {fileID: 1618521586}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &682635310
 Transform:
   m_ObjectHideFlags: 0
@@ -5360,6 +6094,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 682635309}
   - {fileID: 682635312}
+  - {fileID: 682635315}
 --- !u!114 &682635312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5421,6 +6156,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &682635314
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682635308}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &682635315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682635308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &698571873
 GameObject:
   m_ObjectHideFlags: 0
@@ -5434,6 +6208,8 @@ GameObject:
   - component: {fileID: 698571876}
   - component: {fileID: 698571875}
   - component: {fileID: 698571874}
+  - component: {fileID: 698571879}
+  - component: {fileID: 698571880}
   m_Layer: 6
   m_Name: 1Copa
   m_TagString: Untagged
@@ -5505,6 +6281,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 698571877}
   - {fileID: 698571876}
+  - {fileID: 698571880}
 --- !u!114 &698571876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5537,7 +6314,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1901685896}
   _back: {fileID: 1269859873}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &698571878
 Transform:
   m_ObjectHideFlags: 0
@@ -5555,6 +6333,45 @@ Transform:
   - {fileID: 1269859874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &698571879
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698571873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &698571880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698571873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &714228939
 GameObject:
   m_ObjectHideFlags: 0
@@ -5652,6 +6469,8 @@ GameObject:
   - component: {fileID: 737398882}
   - component: {fileID: 737398881}
   - component: {fileID: 737398883}
+  - component: {fileID: 737398884}
+  - component: {fileID: 737398885}
   m_Layer: 6
   m_Name: 4Oro
   m_TagString: Untagged
@@ -5675,7 +6494,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 1230869869}
   _back: {fileID: 1254189251}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &737398880
 Transform:
   m_ObjectHideFlags: 0
@@ -5712,6 +6532,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 737398879}
   - {fileID: 737398882}
+  - {fileID: 737398885}
 --- !u!114 &737398882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5773,6 +6594,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &737398884
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737398878}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &737398885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737398878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &769505360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5870,6 +6730,8 @@ GameObject:
   - component: {fileID: 800116297}
   - component: {fileID: 800116296}
   - component: {fileID: 800116295}
+  - component: {fileID: 800116300}
+  - component: {fileID: 800116301}
   m_Layer: 6
   m_Name: 2Basto
   m_TagString: Untagged
@@ -5941,6 +6803,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 800116298}
   - {fileID: 800116297}
+  - {fileID: 800116301}
 --- !u!114 &800116297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5973,7 +6836,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 212829213}
   _back: {fileID: 278626562}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &800116299
 Transform:
   m_ObjectHideFlags: 0
@@ -5991,6 +6855,45 @@ Transform:
   - {fileID: 278626563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &800116300
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800116294}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &800116301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800116294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &843847127
 GameObject:
   m_ObjectHideFlags: 0
@@ -6256,6 +7159,8 @@ GameObject:
   - component: {fileID: 864266377}
   - component: {fileID: 864266376}
   - component: {fileID: 864266375}
+  - component: {fileID: 864266380}
+  - component: {fileID: 864266381}
   m_Layer: 6
   m_Name: 10Basto
   m_TagString: Untagged
@@ -6327,6 +7232,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 864266378}
   - {fileID: 864266377}
+  - {fileID: 864266381}
 --- !u!114 &864266377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6359,7 +7265,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 1690835753}
   _back: {fileID: 1468938961}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &864266379
 Transform:
   m_ObjectHideFlags: 0
@@ -6377,6 +7284,45 @@ Transform:
   - {fileID: 1468938962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &864266380
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864266374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &864266381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864266374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &869894182
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,6 +7451,8 @@ GameObject:
   - component: {fileID: 892509062}
   - component: {fileID: 892509061}
   - component: {fileID: 892509060}
+  - component: {fileID: 892509065}
+  - component: {fileID: 892509066}
   m_Layer: 6
   m_Name: 11Oro
   m_TagString: Untagged
@@ -6576,6 +7524,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 892509063}
   - {fileID: 892509062}
+  - {fileID: 892509066}
 --- !u!114 &892509062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6608,7 +7557,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 339389798}
   _back: {fileID: 525990157}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &892509064
 Transform:
   m_ObjectHideFlags: 0
@@ -6626,6 +7576,45 @@ Transform:
   - {fileID: 525990158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &892509065
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892509059}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &892509066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892509059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &897408159
 GameObject:
   m_ObjectHideFlags: 0
@@ -6891,6 +7880,8 @@ GameObject:
   - component: {fileID: 919251032}
   - component: {fileID: 919251031}
   - component: {fileID: 919251030}
+  - component: {fileID: 919251035}
+  - component: {fileID: 919251036}
   m_Layer: 6
   m_Name: 12Copa
   m_TagString: Untagged
@@ -6962,6 +7953,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 919251033}
   - {fileID: 919251032}
+  - {fileID: 919251036}
 --- !u!114 &919251032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6994,7 +7986,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 105511327}
   _back: {fileID: 2057289055}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &919251034
 Transform:
   m_ObjectHideFlags: 0
@@ -7012,6 +8005,45 @@ Transform:
   - {fileID: 2057289056}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &919251035
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919251029}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &919251036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919251029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &937452463
 GameObject:
   m_ObjectHideFlags: 0
@@ -7135,6 +8167,8 @@ GameObject:
   - component: {fileID: 967967424}
   - component: {fileID: 967967423}
   - component: {fileID: 967967422}
+  - component: {fileID: 967967427}
+  - component: {fileID: 967967428}
   m_Layer: 6
   m_Name: 5Basto
   m_TagString: Untagged
@@ -7206,6 +8240,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 967967425}
   - {fileID: 967967424}
+  - {fileID: 967967428}
 --- !u!114 &967967424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7238,7 +8273,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 1103803968}
   _back: {fileID: 2091874807}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &967967426
 Transform:
   m_ObjectHideFlags: 0
@@ -7256,6 +8292,45 @@ Transform:
   - {fileID: 2091874808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &967967427
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967967421}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &967967428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967967421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &983075026
 GameObject:
   m_ObjectHideFlags: 0
@@ -7269,6 +8344,8 @@ GameObject:
   - component: {fileID: 983075029}
   - component: {fileID: 983075028}
   - component: {fileID: 983075027}
+  - component: {fileID: 983075032}
+  - component: {fileID: 983075033}
   m_Layer: 6
   m_Name: 7Basto
   m_TagString: Untagged
@@ -7340,6 +8417,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 983075030}
   - {fileID: 983075029}
+  - {fileID: 983075033}
 --- !u!114 &983075029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7372,7 +8450,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 848240748}
   _back: {fileID: 351391904}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &983075031
 Transform:
   m_ObjectHideFlags: 0
@@ -7390,6 +8469,45 @@ Transform:
   - {fileID: 351391905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &983075032
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983075026}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &983075033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983075026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &994610737
 GameObject:
   m_ObjectHideFlags: 0
@@ -7487,6 +8605,8 @@ GameObject:
   - component: {fileID: 997806480}
   - component: {fileID: 997806479}
   - component: {fileID: 997806478}
+  - component: {fileID: 997806483}
+  - component: {fileID: 997806484}
   m_Layer: 6
   m_Name: 12Basto
   m_TagString: Untagged
@@ -7558,6 +8678,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 997806481}
   - {fileID: 997806480}
+  - {fileID: 997806484}
 --- !u!114 &997806480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7590,7 +8711,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 1195656305}
   _back: {fileID: 134890200}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &997806482
 Transform:
   m_ObjectHideFlags: 0
@@ -7608,6 +8730,45 @@ Transform:
   - {fileID: 134890201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &997806483
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997806477}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &997806484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997806477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1027547721
 GameObject:
   m_ObjectHideFlags: 0
@@ -7957,6 +9118,8 @@ GameObject:
   - component: {fileID: 1078443887}
   - component: {fileID: 1078443886}
   - component: {fileID: 1078443888}
+  - component: {fileID: 1078443889}
+  - component: {fileID: 1078443890}
   m_Layer: 6
   m_Name: 3Oro
   m_TagString: Untagged
@@ -7980,7 +9143,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 876939032}
   _back: {fileID: 1971578398}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1078443885
 Transform:
   m_ObjectHideFlags: 0
@@ -8017,6 +9181,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1078443884}
   - {fileID: 1078443887}
+  - {fileID: 1078443890}
 --- !u!114 &1078443887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8078,6 +9243,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1078443889
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078443883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1078443890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078443883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1103803967
 GameObject:
   m_ObjectHideFlags: 0
@@ -8747,6 +9951,8 @@ GameObject:
   - component: {fileID: 1233479929}
   - component: {fileID: 1233479928}
   - component: {fileID: 1233479930}
+  - component: {fileID: 1233479931}
+  - component: {fileID: 1233479932}
   m_Layer: 6
   m_Name: 6Oro
   m_TagString: Untagged
@@ -8770,7 +9976,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 1160724095}
   _back: {fileID: 1620902074}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1233479927
 Transform:
   m_ObjectHideFlags: 0
@@ -8807,6 +10014,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1233479926}
   - {fileID: 1233479929}
+  - {fileID: 1233479932}
 --- !u!114 &1233479929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8868,6 +10076,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1233479931
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233479925}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1233479932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233479925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1254189250
 GameObject:
   m_ObjectHideFlags: 0
@@ -9049,6 +10296,8 @@ GameObject:
   - component: {fileID: 1294753116}
   - component: {fileID: 1294753115}
   - component: {fileID: 1294753117}
+  - component: {fileID: 1294753118}
+  - component: {fileID: 1294753119}
   m_Layer: 6
   m_Name: 5Espada
   m_TagString: Untagged
@@ -9072,7 +10321,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 415630527}
   _back: {fileID: 1142657952}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1294753114
 Transform:
   m_ObjectHideFlags: 0
@@ -9109,6 +10359,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1294753113}
   - {fileID: 1294753116}
+  - {fileID: 1294753119}
 --- !u!114 &1294753116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9170,6 +10421,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1294753118
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294753112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1294753119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294753112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1329391074
 GameObject:
   m_ObjectHideFlags: 0
@@ -9267,6 +10557,8 @@ GameObject:
   - component: {fileID: 1361145141}
   - component: {fileID: 1361145140}
   - component: {fileID: 1361145142}
+  - component: {fileID: 1361145143}
+  - component: {fileID: 1361145144}
   m_Layer: 6
   m_Name: 2Espada
   m_TagString: Untagged
@@ -9290,7 +10582,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1853738719}
   _back: {fileID: 5026161}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1361145139
 Transform:
   m_ObjectHideFlags: 0
@@ -9327,6 +10620,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1361145138}
   - {fileID: 1361145141}
+  - {fileID: 1361145144}
 --- !u!114 &1361145141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9388,6 +10682,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1361145143
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361145137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1361145144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361145137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1403384306
 GameObject:
   m_ObjectHideFlags: 0
@@ -10024,6 +11357,8 @@ GameObject:
   - component: {fileID: 1506244318}
   - component: {fileID: 1506244317}
   - component: {fileID: 1506244316}
+  - component: {fileID: 1506244321}
+  - component: {fileID: 1506244322}
   m_Layer: 6
   m_Name: 10Copa
   m_TagString: Untagged
@@ -10095,6 +11430,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1506244319}
   - {fileID: 1506244318}
+  - {fileID: 1506244322}
 --- !u!114 &1506244318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10127,7 +11463,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1722124777}
   _back: {fileID: 1066448994}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1506244320
 Transform:
   m_ObjectHideFlags: 0
@@ -10145,6 +11482,45 @@ Transform:
   - {fileID: 1066448995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1506244321
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506244315}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1506244322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506244315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1556721015
 GameObject:
   m_ObjectHideFlags: 0
@@ -10242,6 +11618,8 @@ GameObject:
   - component: {fileID: 1617511695}
   - component: {fileID: 1617511694}
   - component: {fileID: 1617511693}
+  - component: {fileID: 1617511698}
+  - component: {fileID: 1617511699}
   m_Layer: 6
   m_Name: 12Oro
   m_TagString: Untagged
@@ -10313,6 +11691,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1617511696}
   - {fileID: 1617511695}
+  - {fileID: 1617511699}
 --- !u!114 &1617511695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10345,7 +11724,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 274915446}
   _back: {fileID: 22107966}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1617511697
 Transform:
   m_ObjectHideFlags: 0
@@ -10363,6 +11743,45 @@ Transform:
   - {fileID: 22107967}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1617511698
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617511692}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1617511699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617511692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1618521585
 GameObject:
   m_ObjectHideFlags: 0
@@ -11151,7 +12570,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 937452464}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11548,6 +12967,8 @@ GameObject:
   - component: {fileID: 1893179289}
   - component: {fileID: 1893179288}
   - component: {fileID: 1893179290}
+  - component: {fileID: 1893179291}
+  - component: {fileID: 1893179292}
   m_Layer: 6
   m_Name: 4Copa
   m_TagString: Untagged
@@ -11571,7 +12992,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 769505361}
   _back: {fileID: 1798824715}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1893179287
 Transform:
   m_ObjectHideFlags: 0
@@ -11608,6 +13030,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1893179286}
   - {fileID: 1893179289}
+  - {fileID: 1893179292}
 --- !u!114 &1893179289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11669,6 +13092,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1893179291
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893179285}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1893179292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893179285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1894799628
 GameObject:
   m_ObjectHideFlags: 0
@@ -11934,6 +13396,8 @@ GameObject:
   - component: {fileID: 1940717110}
   - component: {fileID: 1940717109}
   - component: {fileID: 1940717111}
+  - component: {fileID: 1940717112}
+  - component: {fileID: 1940717113}
   m_Layer: 6
   m_Name: 6Copa
   m_TagString: Untagged
@@ -11957,7 +13421,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 1999179688}
   _back: {fileID: 897408160}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1940717108
 Transform:
   m_ObjectHideFlags: 0
@@ -11994,6 +13459,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1940717107}
   - {fileID: 1940717110}
+  - {fileID: 1940717113}
 --- !u!114 &1940717110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12055,6 +13521,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &1940717112
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940717106}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1940717113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940717106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 1940717112}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &1947354230
 GameObject:
   m_ObjectHideFlags: 0
@@ -12068,6 +13573,8 @@ GameObject:
   - component: {fileID: 1947354233}
   - component: {fileID: 1947354232}
   - component: {fileID: 1947354231}
+  - component: {fileID: 1947354236}
+  - component: {fileID: 1947354237}
   m_Layer: 6
   m_Name: 11Copa
   m_TagString: Untagged
@@ -12139,6 +13646,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1947354234}
   - {fileID: 1947354233}
+  - {fileID: 1947354237}
 --- !u!114 &1947354233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12171,7 +13679,8 @@ MonoBehaviour:
   suit: 2
   _front: {fileID: 277604446}
   _back: {fileID: 393859746}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1947354235
 Transform:
   m_ObjectHideFlags: 0
@@ -12189,6 +13698,45 @@ Transform:
   - {fileID: 393859747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1947354236
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947354230}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1947354237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947354230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1971578397
 GameObject:
   m_ObjectHideFlags: 0
@@ -12286,6 +13834,8 @@ GameObject:
   - component: {fileID: 1973591934}
   - component: {fileID: 1973591933}
   - component: {fileID: 1973591932}
+  - component: {fileID: 1973591937}
+  - component: {fileID: 1973591938}
   m_Layer: 6
   m_Name: 1Basto
   m_TagString: Untagged
@@ -12357,6 +13907,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1973591935}
   - {fileID: 1973591934}
+  - {fileID: 1973591938}
 --- !u!114 &1973591934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12389,7 +13940,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 278309991}
   _back: {fileID: 1556721016}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &1973591936
 Transform:
   m_ObjectHideFlags: 0
@@ -12407,6 +13959,45 @@ Transform:
   - {fileID: 1556721017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1973591937
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973591931}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1973591938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973591931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &1979497170
 GameObject:
   m_ObjectHideFlags: 0
@@ -12955,6 +14546,8 @@ GameObject:
   - component: {fileID: 2099482128}
   - component: {fileID: 2099482127}
   - component: {fileID: 2099482129}
+  - component: {fileID: 2099482130}
+  - component: {fileID: 2099482131}
   m_Layer: 6
   m_Name: 5Oro
   m_TagString: Untagged
@@ -12978,7 +14571,8 @@ MonoBehaviour:
   suit: 3
   _front: {fileID: 395563037}
   _back: {fileID: 528712606}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &2099482126
 Transform:
   m_ObjectHideFlags: 0
@@ -13015,6 +14609,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2099482125}
   - {fileID: 2099482128}
+  - {fileID: 2099482131}
 --- !u!114 &2099482128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13076,6 +14671,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 2.2}
   m_EdgeRadius: 0
+--- !u!95 &2099482130
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099482124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2099482131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099482124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &2101556555
 GameObject:
   m_ObjectHideFlags: 0
@@ -13089,6 +14723,8 @@ GameObject:
   - component: {fileID: 2101556558}
   - component: {fileID: 2101556557}
   - component: {fileID: 2101556556}
+  - component: {fileID: 2101556561}
+  - component: {fileID: 2101556562}
   m_Layer: 6
   m_Name: 11Basto
   m_TagString: Untagged
@@ -13160,6 +14796,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2101556559}
   - {fileID: 2101556558}
+  - {fileID: 2101556562}
 --- !u!114 &2101556558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13192,7 +14829,8 @@ MonoBehaviour:
   suit: 1
   _front: {fileID: 1442906611}
   _back: {fileID: 206038616}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &2101556560
 Transform:
   m_ObjectHideFlags: 0
@@ -13210,6 +14848,45 @@ Transform:
   - {fileID: 206038617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2101556561
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101556555}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2101556562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101556555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &2133646037
 GameObject:
   m_ObjectHideFlags: 0
@@ -13223,6 +14900,8 @@ GameObject:
   - component: {fileID: 2133646040}
   - component: {fileID: 2133646039}
   - component: {fileID: 2133646038}
+  - component: {fileID: 2133646043}
+  - component: {fileID: 2133646044}
   m_Layer: 6
   m_Name: 12Espada
   m_TagString: Untagged
@@ -13294,6 +14973,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2133646041}
   - {fileID: 2133646040}
+  - {fileID: 2133646044}
 --- !u!114 &2133646040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13326,7 +15006,8 @@ MonoBehaviour:
   suit: 0
   _front: {fileID: 1633986742}
   _back: {fileID: 884457}
-  _visible: 0
+  moving: 0
+  _visibility: 0
 --- !u!4 &2133646042
 Transform:
   m_ObjectHideFlags: 0
@@ -13344,6 +15025,45 @@ Transform:
   - {fileID: 884458}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2133646043
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133646037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98412fbdcd6109a46ba70b36bfe55a4a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2133646044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133646037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
+  TotalWords: -1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 
+  TriggerHashes: 
 --- !u!1 &2146725548
 GameObject:
   m_ObjectHideFlags: 0

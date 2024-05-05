@@ -12,7 +12,8 @@ public class Player : NetworkBehaviour
     List<Card> selectedCards = new List<Card>();
     List<Card> earnedCards = new List<Card>();
 
-    public int handSize = 0;
+    [Networked]
+    public int handSize { get; set; } = 0;
 
     public Transform deckPos;
     public Transform earnedCardsPos;
@@ -22,6 +23,7 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         GameManager.instance.players.Add(this);
+        GameManager.instance.SyncCards();
     }
 
     private void Update()
@@ -40,7 +42,8 @@ public class Player : NetworkBehaviour
         }
     }
 
-    public void BeDealt(Card card)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcBeDealt(Card card)
     {
         hand[handSize] = card;
         card.TurnFaceUp();
@@ -56,12 +59,12 @@ public class Player : NetworkBehaviour
         if (selectedCards.Contains(card))
         {
             selectedCards.Remove(card);
-            // animacion deseleccionar
+            card.Deselect();
         }
         else
         {
             selectedCards.Add(card);
-            // animacion seleccionar
+            card.Select();
         }
 
         if (hand.Contains(card))

@@ -21,6 +21,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] Card[] _allCards;
     [SerializeField] Transform _preGameDeckPos;
 
+    bool _wait = false;
+
     int _dealerIndex = 0;
 
     //[Networked, OnChangedRender(nameof(PlayerJoined)), Capacity(4)]
@@ -35,26 +37,45 @@ public class GameManager : NetworkBehaviour
     {
         if (instance != null) Destroy(gameObject);
         instance = this;
+
+        //PreGame();
+    }
+
+    public void SyncCards()
+    {
+        foreach (var item in _allCards)
+        {
+            item.RpcSetVisibility(Card.Visibility.Syncing);
+        }
     }
 
     public void PreGame()
     {
-        //if (!HasStateAuthority) return;
+        if (!HasStateAuthority) return;
 
         deckPos = _preGameDeckPos;
 
         foreach (var item in _allCards)
         {
-            item.RpcSetVisibility(false);
+            item.RpcSetVisibility(Card.Visibility.Hidden);
             item.PlaceInDeck();
         }
+
+        startGameButton.SetActive(false);
 
         deck = deck.Shuffle().ToStack();
     }
 
-    public void StartGame()
+    public void Start()
     {
         if (!HasStateAuthority) return;
+        StartCoroutine(StartGame());
+        //startGameButton.SetActive(false);
+    }
+
+    public IEnumerator StartGame()
+    {
+        if (!HasStateAuthority) yield break;
 
         _dealerIndex = Random.Range(0, players.Count);
         deckPos = players[_dealerIndex].deckPos;
@@ -64,27 +85,35 @@ public class GameManager : NetworkBehaviour
             item.Move(deckPos);
         }
 
-        StartRound();
+        while (deck.Peek().moving) yield return null;
+
+        StartCoroutine(StartRound());
     }
 
-    void StartRound()
+    IEnumerator StartRound()
     {
-        if (!HasStateAuthority) return;
+        if (!HasStateAuthority) yield break;
 
-        StartHand();
+        StartCoroutine(StartHand());
+
+        while (_wait) yield return null;
 
         for (int i = 0; i < 4; i++)
         {
             var card = deck.Pop();
-            card.RpcSetVisibility(true);
+            card.RpcSetVisibility(Card.Visibility.Visible);
             card.PlaceOnTable();
             onTable.Add(card);
+
+            while (card.moving) yield return null;
         }
     }
 
-    void StartHand()
+    IEnumerator StartHand()
     {
-        if (!HasStateAuthority) return;
+        if (!HasStateAuthority) yield break;
+
+        _wait = true;
 
         var k = _dealerIndex + 1;
 
@@ -97,10 +126,16 @@ public class GameManager : NetworkBehaviour
                     k = 0;
                 }
 
-                deck.Pop().Deal(players[k]);
+                var card = deck.Pop();
+                
+                card.Deal(players[k]);
+
+                while (card.moving) yield return null;
 
                 k++;
             }
         }
+
+        _wait = false;
     }
 }
