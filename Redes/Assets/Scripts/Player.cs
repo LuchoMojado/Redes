@@ -8,12 +8,16 @@ public class Player : NetworkBehaviour
 {
     public Transform[] handPos;
 
-    Card[] hand = new Card[3];
+    List<Card> _hand = new List<Card>();
     List<Card> selectedCards = new List<Card>();
     List<Card> earnedCards = new List<Card>();
+    List<Card> brooms = new List<Card>();
 
     [Networked]
     public int handSize { get; set; } = 0;
+
+    [Networked]
+    public int playerNumber { get; set; }
 
     public Transform deckPos;
     public Transform earnedCardsPos;
@@ -21,7 +25,22 @@ public class Player : NetworkBehaviour
     [SerializeField] LayerMask _cardLayer;
 
     [Networked]
-    public bool _myTurn { get; set; } = false;
+    public bool myTurn { get; set; } = false;
+
+    [Networked]
+    public int broomCount { get; set; } = 0;
+
+    [Networked]
+    public int cardCount { get; set; } = 0;
+
+    [Networked]
+    public bool hasGold7 { get; set; } = false;
+
+    [Networked]
+    public int seventy { get; set; } = 0;
+
+    [Networked]
+    public int golds { get; set; } = 0;
 
     bool _clicked = false;
     Ray _ray;
@@ -34,7 +53,7 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (!_myTurn)
+        if (!myTurn)
         {
             print("no soy el player activo");
             return;
@@ -71,7 +90,7 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcBeDealt(Card card)
     {
-        hand[handSize] = card;
+        _hand.Add(card);
         card.TurnFaceUp();
         handSize++;
     }
@@ -79,14 +98,14 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcStartTurn()
     {
-        _myTurn = true;
+        myTurn = true;
     }
 
     void SelectCard(Card card)
     {
         print("entramos a select");
 
-        bool inHand = hand.Contains(card);
+        bool inHand = _hand.Contains(card);
 
         print("esta en mi mano");
 
@@ -109,7 +128,7 @@ public class Player : NetworkBehaviour
 
         if (inHand)
         {
-            var selectedInHand = hand.Intersect(selectedCards);
+            var selectedInHand = _hand.Intersect(selectedCards);
 
             if (selectedInHand.Count() > 1)
             {
@@ -125,46 +144,229 @@ public class Player : NetworkBehaviour
             }
         }
 
-        if (selectedCards.Count == 1 && inHand)
+        if (selectedCards.Count == 1 && _hand.Intersect(selectedCards).Any())
         {
-            //permitir jugar
+            GameManager.instance.playButton.SetActive(true);
+            GameManager.instance.pickUpButton.SetActive(false);
         }
         else if (CanPickUp())
         {
-            //permitir levantar
+            GameManager.instance.playButton.SetActive(false);
+            GameManager.instance.pickUpButton.SetActive(true);
         }
         else
         {
-            //no permitir jugar
+            GameManager.instance.playButton.SetActive(false);
+            GameManager.instance.pickUpButton.SetActive(false);
         }
     }
 
-    void PlayCard()
+    public IEnumerator PlayCard()
     {
-        hand.ToList().Remove(selectedCards.First());
+        GameManager.instance.playButton.SetActive(false);
+        var card = selectedCards.First();
+        selectedCards.Clear();
+        RemoveFromHand(card);
+        card.RpcPlaceOnTable();
+        card.RpcSetVisibility(Card.Visibility.Visible);
+        card.Deselect();
+
+        while (card.moving) yield return null;
+
+        myTurn = false;
+        GameManager.instance.RpcNextPlayerTurn(false);
     }
 
     bool CanPickUp()
     {
-        return selectedCards.Select(x => x.value).Sum() == 15 && hand.Intersect(selectedCards).Any();
+        return selectedCards.Select(x => x.value).Sum() == 15 && _hand.Intersect(selectedCards).Any();
     }
 
-    public void PickUp()
+    public IEnumerator PickUp()
     {
-        var handCard = hand.Intersect(selectedCards);
-        hand.ToList().Remove(handCard.First());
-        foreach (var item in selectedCards.Except(handCard))
+        GameManager.instance.pickUpButton.SetActive(false);
+
+        earnedCards = earnedCards.Concat(selectedCards).ToList();
+
+        var handCards = _hand.Intersect(selectedCards);
+        var handCard = handCards.First();
+        handCard.RpcSetVisibility(Card.Visibility.Visible);
+        RemoveFromHand(handCard);
+
+        yield return new WaitForSeconds(1);
+
+        foreach (var item in selectedCards.Except(handCards))
         {
-            GameManager.instance.onTable.Remove(item);
+            GameManager.instance.RpcRemoveFromTable(item);
         }
 
         if (!GameManager.instance.onTable.Any())
         {
-            //escoba
+            brooms.Add(handCard);
+            handCard.Deselect();
+
+            Vector3 earnedEulerRotation = earnedCardsPos.rotation.eulerAngles;
+            Quaternion endRotation = Quaternion.Euler(earnedEulerRotation.x, earnedEulerRotation.y, earnedEulerRotation.z + 90);
+
+            handCard.RpcMove(earnedCardsPos.position, endRotation);
+
+            selectedCards.Remove(handCard);
+
+            while (handCard.moving) yield return null;
         }
-        //mover selected a la pila de earned (y apagar?)
-        earnedCards.Concat(selectedCards);
+
+        foreach (var item in selectedCards)
+        {
+            item.RpcSetVisibility(Card.Visibility.Hidden);
+            item.Deselect();
+            item.RpcMove(earnedCardsPos.position, earnedCardsPos.rotation);
+        }
+
+        while (selectedCards.First().moving) yield return null;
         
         selectedCards.Clear();
+
+        myTurn = false;
+        GameManager.instance.RpcNextPlayerTurn(true);
+    }
+
+    void RemoveFromHand(Card card)
+    {
+        _hand.Remove(card);
+
+        handSize--;
+    }
+
+    //[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void GetCardsLeftOnTable()
+    {
+        earnedCards = earnedCards.Concat(GameManager.instance.onTable).ToList();
+
+        while (GameManager.instance.onTable.Count > 0)
+        {
+            var card = GameManager.instance.onTable.First();
+            GameManager.instance.RpcRemoveFromTable(card);
+            card.RpcSetVisibility(Card.Visibility.Hidden);
+            card.RpcMove(earnedCardsPos.position, earnedCardsPos.rotation);
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcBrooms()
+    {
+        int counter = 0;
+
+        foreach (var item in brooms)
+        {
+            counter++;
+            item.RpcMove(earnedCardsPos.position + earnedCardsPos.right * (1.5f * counter), transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(item, 4));
+        }
+
+        broomCount = counter;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcTotalEarnedCards()
+    {
+        cardCount = earnedCards.Count;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcGoldSeven()
+    {
+        foreach (var item in earnedCards)
+        {
+            if (item.value == 7 && item.suit == Card.Suits.Oro)
+            {
+                item.RpcSetVisibility(Card.Visibility.Visible);
+                item.RpcMove(handPos[1].position, transform.rotation);
+                StartCoroutine(ReturnToEarnedStack(item, 4));
+                hasGold7 = true;
+
+                return;
+            }
+        }
+
+        hasGold7 = false;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcSeventy()
+    {
+        int total = 0;
+        var sevenOrLower = earnedCards.Where(x => x.value <= 7).OrderBy(x => x.suit).ThenByDescending(x => x.value);
+
+        var espada = sevenOrLower.First();
+        if (espada.suit == Card.Suits.Espada)
+        {
+            total += espada.value;
+            espada.RpcSetVisibility(Card.Visibility.Visible);
+            espada.RpcMove(handPos[1].position - handPos[1].right * 2.25f, transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(espada, 7));
+        }
+
+        var basto = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Basto).First();
+        if (basto.suit == Card.Suits.Basto)
+        {
+            total += basto.value;
+            basto.RpcSetVisibility(Card.Visibility.Visible);
+            basto.RpcMove(handPos[1].position - handPos[1].right * 0.75f, transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(basto, 7));
+        }
+
+        var copa = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Copa).First();
+        if (copa.suit == Card.Suits.Copa)
+        {
+            total += copa.value;
+            copa.RpcSetVisibility(Card.Visibility.Visible);
+            copa.RpcMove(handPos[1].position + handPos[1].right * 0.75f, transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(copa, 7));
+        }
+
+        var oro = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Oro).First();
+        if (oro.suit == Card.Suits.Oro)
+        {
+            total += oro.value;
+            oro.RpcSetVisibility(Card.Visibility.Visible);
+            oro.RpcMove(handPos[1].position + handPos[1].right * 2.25f, transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(oro, 7));
+        }
+
+        seventy = total;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcGolds()
+    {
+        int counter = 0;
+
+        foreach (var item in earnedCards)
+        {
+            if (item.suit == Card.Suits.Oro)
+            {
+                item.RpcSetVisibility(Card.Visibility.Visible);
+                item.RpcMove(earnedCardsPos.position + earnedCardsPos.right * (1.5f + 0.75f * counter), transform.rotation);
+                StartCoroutine(ReturnToEarnedStack(item, 5));
+                counter++;
+            }
+        }
+
+        golds = counter;
+    }
+
+    public IEnumerator ReturnToEarnedStack(Card card, float delay = 0)
+    {
+        yield return new WaitForSeconds(delay);
+
+        card.RpcMove(earnedCardsPos.position, earnedCardsPos.rotation);
+        card.RpcSetVisibility(Card.Visibility.Hidden);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcClearLists()
+    {
+        earnedCards.Clear();
+        brooms.Clear();
     }
 }

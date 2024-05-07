@@ -80,7 +80,7 @@ public class Card : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (Vector3.Distance(transform.position, _goTo) > 0.01f || transform.rotation != _rotateTo)
+        if (Vector3.Distance(transform.position, _goTo) > 0.01f/* || transform.rotation != _rotateTo*/)
         {
             _timer += Runner.DeltaTime;
 
@@ -98,16 +98,24 @@ public class Card : NetworkBehaviour
         GameManager.instance.deck.Push(this);
 
         var deckPos = GameManager.instance.deckPos;
-        Move(deckPos);
+        RpcMove(deckPos.position, deckPos.rotation);
     }
 
-    public void PlaceOnTable()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcPlaceOnTable()
+    {
+        Vector3 pos = GetTablePos(GameManager.instance.onTable.Count);
+        
+        RpcMove(pos, Quaternion.identity);
+
+        GameManager.instance.RpcSetOnTable(this);
+    }
+
+    public Vector3 GetTablePos(int location)
     {
         Vector3 pos = Vector3.zero;
 
-        int cardsOnTable = GameManager.instance.onTable.Count;
-        print("la cantidad de cartas en la mesa es: " + cardsOnTable);
-        int placement = cardsOnTable % 4;
+        int placement = location % 4;
 
         switch (placement)
         {
@@ -125,16 +133,15 @@ public class Card : NetworkBehaviour
                 break;
         }
 
-        pos += new Vector3(pos.x * Mathf.FloorToInt(cardsOnTable * 0.25f) * 2, 0);
-        
-        Move(pos, Quaternion.identity);
+        pos += new Vector3(pos.x * Mathf.FloorToInt(location * 0.25f) * 2, 0);
 
-        GameManager.instance.RpcSetOnTable(this);
+        return pos;
     }
 
     public void Deal(Player player)
     {
-        Move(player.handPos[player.handSize]);
+        var pos = player.handPos[player.handSize];
+        RpcMove(pos.position, pos.rotation);
         player.RpcBeDealt(this);
     }
 
@@ -162,17 +169,8 @@ public class Card : NetworkBehaviour
         _back.enabled = true;
     }
 
-    public void Move(Transform endPos)
-    {
-        _timer = 0;
-
-        _goTo = endPos.position;
-        _rotateTo = endPos.rotation;
-
-        moving = true;
-    }
-
-    public void Move(Vector3 endPosition, Quaternion endRotation)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcMove(Vector3 endPosition, Quaternion endRotation)
     {
         _timer = 0;
 

@@ -14,11 +14,10 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
     {
         var playerCount = Runner.ActivePlayers.Count() - 1;
 
-        if (player == Runner.LocalPlayer && playerCount < 4)
+        if (player == Runner.LocalPlayer && playerCount < 4 && !GameManager.instance.gameStarted)
         {
-            //GameManager.instance.players.Add(Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation));
-            //Debug.Log(GameManager.instance.players.Count);
-            Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation);
+            var spawnedPlayer = Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation);
+            spawnedPlayer.playerNumber = playerCount + 1;
             GameManager.instance.PreGame();
         }
 
@@ -28,32 +27,4 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
             GameManager.instance.startGameButton.SetActive(true);
         }
     }
-
-    /*public void PlayerJoined(PlayerRef player)
-    {
-        if (player == Runner.LocalPlayer)
-        {
-            var playerCount = 0;
-
-            foreach (var item in Runner.ActivePlayers)
-            {
-                playerCount++;
-            }
-
-            if (playerCount < 4)
-            {
-                Transform spawnPosition = playerSpawns.Length - 1 <= playerCount ? default : playerSpawns[playerCount];
-
-                GameManager.instance.players.Add(Runner.Spawn(_player, spawnPosition.position, spawnPosition.rotation));
-                Debug.Log(GameManager.instance.players.Count);
-                GameManager.instance.PreGame();
-            }
-
-            if (playerCount > 0)
-            {
-                Debug.Log("ready to start");
-                GameManager.instance.startGameButton.SetActive(true);
-            }
-        }
-    }*/
 }
