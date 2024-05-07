@@ -5,6 +5,8 @@ using Fusion;
 using System.Linq;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Rendering.Universal;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class GameManager : NetworkBehaviour
 {
@@ -21,7 +23,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] Card[] _allCards;
     [SerializeField] Transform _preGameDeckPos;
-    [SerializeField] Text _text;
+    [SerializeField] Text _resultsText, _scoreText;
 
     /*[Networked, OnChangedRender(nameof(UpdateText))]
     public string displayText { get; set; }
@@ -37,7 +39,8 @@ public class GameManager : NetworkBehaviour
 
     int _dealerIndex = 0, _activeIndex = 0, _remainingTurns = 0, _lastToPickUpIndex = 0;
 
-    public int[] _scores = { 0, 0, 0, 0 };
+    [Networked, Capacity(4)]
+    public NetworkArray<int> scores { get; set; } = MakeInitializer(new int[] { 0, 0, 0, 0 });
 
     //[Networked, OnChangedRender(nameof(PlayerJoined)), Capacity(4)]
     //public NetworkArray<Player> joinedPlayers { get; set; }
@@ -228,7 +231,7 @@ public class GameManager : NetworkBehaviour
             {
                 if (deck.Count <= 0)
                 {
-                    if (onTable.Count > 0) players[_lastToPickUpIndex].GetCardsLeftOnTable();
+                    if (onTable.Count > 0) players[_lastToPickUpIndex].RpcGetCardsLeftOnTable();
 
                     RpcCountPoints();
 
@@ -258,7 +261,7 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(2);
 
-        _text.text = "Escobas";
+        RpcUpdateText("Escobas", true);
 
         yield return new WaitForSeconds(2);
 
@@ -269,13 +272,15 @@ public class GameManager : NetworkBehaviour
 
             yield return new WaitForSeconds(2);
 
-            _text.text += $"{Environment.NewLine}Jugador {i + 1}: {brooms}";
-            _scores[i] += brooms;
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {brooms}", false);
+            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {brooms}";
+            scores.Set(i, scores.Get(i) + brooms);
         }
 
         yield return new WaitForSeconds(4);
 
-        _text.text = "Cartas";
+        //_text.text = "Cartas";
+        RpcUpdateText("Cartas", true);
 
         for (int i = 0; i < players.Count; i++)
         {
@@ -295,22 +300,26 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            _text.text += $"{Environment.NewLine}Jugador {i + 1}: {cards}";
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {cards}", false);
+            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {cards}";
         }
 
         if (tied)
         {
-            _text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
+            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
-            _scores[winnerIndex]++;
-            _text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
+            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            //_text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
         }
 
         yield return new WaitForSeconds(4);
 
-        _text.text = "7 de Oro";
+        RpcUpdateText("7 de Oro", true);
+        //_text.text = "7 de Oro";
 
         yield return new WaitForSeconds(2);
 
@@ -322,8 +331,8 @@ public class GameManager : NetworkBehaviour
 
             if (players[i].hasGold7)
             {
-                _text.text += $"{Environment.NewLine}El jugador {i + 1} lo tiene";
-                _scores[i]++;
+                RpcUpdateText($"{Environment.NewLine}El jugador {i + 1} lo tiene", false);
+                scores.Set(i, scores.Get(i) + 1);
 
                 break;
             }
@@ -333,7 +342,8 @@ public class GameManager : NetworkBehaviour
 
         currentHighest = 0;
 
-        _text.text = "Setenta";
+        RpcUpdateText("Setenta", true);
+        //_text.text = "Setenta";
 
         yield return new WaitForSeconds(2);
 
@@ -356,24 +366,26 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            _text.text += $"{Environment.NewLine}Jugador {i + 1}: sumó {total}";
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: sumó {total}", false);
         }
 
         if (tied)
         {
-            _text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
+            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
-            _scores[winnerIndex]++;
-            _text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
+            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
         }
 
         yield return new WaitForSeconds(7);
 
         currentHighest = 0;
 
-        _text.text = "Oro";
+        RpcUpdateText("Oro", true);
+        //_text.text = "Oro";
 
         yield return new WaitForSeconds(2);
 
@@ -396,22 +408,24 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            _text.text += $"{Environment.NewLine}Jugador {i + 1}: {golds}";
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {golds}", false);
         }
 
         if (tied)
         {
-            _text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
+            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
-            _scores[winnerIndex]++;
-            _text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
+            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
         }
 
         yield return new WaitForSeconds(5);
 
-        _text.text = "Puntaje";
+        RpcUpdateText("Puntaje", true);
+        //_text.text = "Puntaje";
 
         bool winner = false;
         tied = false;
@@ -420,7 +434,7 @@ public class GameManager : NetworkBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             players[i].RpcClearLists();
-            int score = _scores[i];
+            int score = scores[i];
 
             if (score >= 15)
             {
@@ -436,20 +450,23 @@ public class GameManager : NetworkBehaviour
                 currentHighest = score;
             }
 
-            _text.text += $"{Environment.NewLine}Jugador {i + 1}: {score}";
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {score}", false);
+            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {score}";
         }
 
         if (tied)
         {
-            _text.text += $"{Environment.NewLine}Hay empate, comienza ronda de desempate";
+            RpcUpdateText($"{Environment.NewLine}Hay empate, comienza ronda de desempate", false);
+            //_text.text += $"{Environment.NewLine}Hay empate, comienza ronda de desempate";
         }
         else if (winner)
         {
-            _text.text += $"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}";
+            RpcUpdateText($"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}", false);
+            //_text.text += $"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}";
 
             yield return new WaitForSeconds(5);
 
-            _text.text = "";
+            RpcUpdateText("", true);
 
             PreGame();
             RpcTurnOnStartGameButton();
@@ -459,8 +476,16 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(5);
 
-        _text.text = "";
+        RpcUpdateText("", true);
 
         StartCoroutine(StartRound());
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    public void RpcUpdateText(string text, bool overwrite)
+    {
+        if (overwrite) _resultsText.text = "";
+
+        _resultsText.text += text;
     }
 }

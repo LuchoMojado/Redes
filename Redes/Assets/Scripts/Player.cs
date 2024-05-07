@@ -237,8 +237,8 @@ public class Player : NetworkBehaviour
         handSize--;
     }
 
-    //[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void GetCardsLeftOnTable()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcGetCardsLeftOnTable()
     {
         earnedCards = earnedCards.Concat(GameManager.instance.onTable).ToList();
 
