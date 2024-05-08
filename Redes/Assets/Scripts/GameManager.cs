@@ -273,16 +273,14 @@ public class GameManager : NetworkBehaviour
             players[i].RpcBrooms();
             var brooms = players[i].broomCount;
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {brooms}", false);
-            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {brooms}";
             RpcUpdateScore(i, brooms);
         }
 
         yield return new WaitForSeconds(4);
 
-        //_text.text = "Cartas";
         RpcUpdateText("Cartas", true);
 
         for (int i = 0; i < players.Count; i++)
@@ -290,7 +288,7 @@ public class GameManager : NetworkBehaviour
             players[i].RpcTotalEarnedCards();
             var cards = players[i].cardCount;
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             if (cards > currentHighest)
             {
@@ -304,25 +302,21 @@ public class GameManager : NetworkBehaviour
             }
 
             RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {cards}", false);
-            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {cards}";
         }
 
         if (tied)
         {
             RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
-            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
             RpcUpdateScore(winnerIndex, 1);
             RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
-            //_text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
         }
 
         yield return new WaitForSeconds(4);
 
         RpcUpdateText("7 de Oro", true);
-        //_text.text = "7 de Oro";
 
         yield return new WaitForSeconds(2);
 
@@ -330,7 +324,7 @@ public class GameManager : NetworkBehaviour
         {
             players[i].RpcGoldSeven();
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             if (players[i].hasGold7)
             {
@@ -346,7 +340,6 @@ public class GameManager : NetworkBehaviour
         currentHighest = 0;
 
         RpcUpdateText("Setenta", true);
-        //_text.text = "Setenta";
 
         yield return new WaitForSeconds(2);
 
@@ -354,7 +347,7 @@ public class GameManager : NetworkBehaviour
         {
             players[i].RpcSeventy();
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             int total = players[i].seventy;
 
@@ -375,7 +368,6 @@ public class GameManager : NetworkBehaviour
         if (tied)
         {
             RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
-            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
@@ -388,7 +380,6 @@ public class GameManager : NetworkBehaviour
         currentHighest = 0;
 
         RpcUpdateText("Oro", true);
-        //_text.text = "Oro";
 
         yield return new WaitForSeconds(2);
 
@@ -396,7 +387,7 @@ public class GameManager : NetworkBehaviour
         {
             players[i].RpcGolds();
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             int golds = players[i].golds;
 
@@ -417,7 +408,6 @@ public class GameManager : NetworkBehaviour
         if (tied)
         {
             RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
-            //_text.text += $"{Environment.NewLine}Hubo un empate, nadie gana el punto";
         }
         else
         {
@@ -428,7 +418,6 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(5);
 
         RpcUpdateText("Puntaje", true);
-        //_text.text = "Puntaje";
 
         bool winner = false;
         tied = false;
@@ -454,18 +443,15 @@ public class GameManager : NetworkBehaviour
             }
 
             RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {score}", false);
-            //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {score}";
         }
 
         if (tied)
         {
             RpcUpdateText($"{Environment.NewLine}Hay empate, comienza ronda de desempate", false);
-            //_text.text += $"{Environment.NewLine}Hay empate, comienza ronda de desempate";
         }
         else if (winner)
         {
             RpcUpdateText($"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}", false);
-            //_text.text += $"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}";
 
             yield return new WaitForSeconds(5);
 

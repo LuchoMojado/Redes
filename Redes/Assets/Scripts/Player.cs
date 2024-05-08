@@ -244,7 +244,7 @@ public class Player : NetworkBehaviour
         {
             counter++;
             item.RpcMove(earnedCardsPos.position + earnedCardsPos.right * (1.5f * counter), transform.rotation);
-            StartCoroutine(ReturnToEarnedStack(item, 4));
+            StartCoroutine(ReturnToEarnedStack(item, 5));
         }
 
         broomCount = counter;
@@ -265,7 +265,7 @@ public class Player : NetworkBehaviour
             {
                 item.RpcSetVisibility(Card.Visibility.Visible);
                 item.RpcMove(handPos[1].position, transform.rotation);
-                StartCoroutine(ReturnToEarnedStack(item, 4));
+                StartCoroutine(ReturnToEarnedStack(item, 5));
                 hasGold7 = true;
 
                 return;
@@ -287,7 +287,7 @@ public class Player : NetworkBehaviour
             total += espada.value;
             espada.RpcSetVisibility(Card.Visibility.Visible);
             espada.RpcMove(handPos[1].position - handPos[1].right * 2.25f, transform.rotation);
-            StartCoroutine(ReturnToEarnedStack(espada, 7));
+            StartCoroutine(ReturnToEarnedStack(espada, 8));
         }
 
         var basto = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Basto).First();
@@ -296,7 +296,7 @@ public class Player : NetworkBehaviour
             total += basto.value;
             basto.RpcSetVisibility(Card.Visibility.Visible);
             basto.RpcMove(handPos[1].position - handPos[1].right * 0.75f, transform.rotation);
-            StartCoroutine(ReturnToEarnedStack(basto, 7));
+            StartCoroutine(ReturnToEarnedStack(basto, 8));
         }
 
         var copa = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Copa).First();
@@ -305,7 +305,7 @@ public class Player : NetworkBehaviour
             total += copa.value;
             copa.RpcSetVisibility(Card.Visibility.Visible);
             copa.RpcMove(handPos[1].position + handPos[1].right * 0.75f, transform.rotation);
-            StartCoroutine(ReturnToEarnedStack(copa, 7));
+            StartCoroutine(ReturnToEarnedStack(copa, 8));
         }
 
         var oro = sevenOrLower.SkipWhile(x => x.suit < Card.Suits.Oro).First();
@@ -314,7 +314,7 @@ public class Player : NetworkBehaviour
             total += oro.value;
             oro.RpcSetVisibility(Card.Visibility.Visible);
             oro.RpcMove(handPos[1].position + handPos[1].right * 2.25f, transform.rotation);
-            StartCoroutine(ReturnToEarnedStack(oro, 7));
+            StartCoroutine(ReturnToEarnedStack(oro, 8));
         }
 
         seventy = total;
@@ -331,7 +331,7 @@ public class Player : NetworkBehaviour
             {
                 item.RpcSetVisibility(Card.Visibility.Visible);
                 item.RpcMove(earnedCardsPos.position + earnedCardsPos.right * (1.5f + 0.75f * counter), transform.rotation);
-                StartCoroutine(ReturnToEarnedStack(item, 5));
+                StartCoroutine(ReturnToEarnedStack(item, 6));
                 counter++;
             }
         }
