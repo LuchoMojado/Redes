@@ -12,7 +12,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
 
-    public GameObject startGameButton, playButton, pickUpButton;
+    public GameObject startGameButton, playButton, pickUpButton, scoreButton;
 
     public List<Player> players = new List<Player>();
 
@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] Card[] _allCards;
     [SerializeField] Transform _preGameDeckPos;
-    [SerializeField] Text _resultsText, _scoreText;
+    [SerializeField] Text _displayText;
 
     /*[Networked, OnChangedRender(nameof(UpdateText))]
     public string displayText { get; set; }
@@ -40,7 +40,7 @@ public class GameManager : NetworkBehaviour
     int _dealerIndex = 0, _activeIndex = 0, _remainingTurns = 0, _lastToPickUpIndex = 0;
 
     [Networked, Capacity(4)]
-    public NetworkArray<int> scores { get; set; } = MakeInitializer(new int[] { 0, 0, 0, 0 });
+    public NetworkArray<int> scores { get; } = MakeInitializer(new int[] { 0, 0, 0, 0 });
 
     //[Networked, OnChangedRender(nameof(PlayerJoined)), Capacity(4)]
     //public NetworkArray<Player> joinedPlayers { get; set; }
@@ -126,6 +126,8 @@ public class GameManager : NetworkBehaviour
     IEnumerator StartRound()
     {
         if (!HasStateAuthority) yield break;
+
+        RpcToggleScoreButton(true);
 
         foreach (var item in _allCards)
         {
@@ -233,6 +235,7 @@ public class GameManager : NetworkBehaviour
                 {
                     if (onTable.Count > 0) players[_lastToPickUpIndex].RpcGetCardsLeftOnTable();
 
+                    RpcToggleScoreButton(false);
                     RpcCountPoints();
 
                     return;
@@ -274,7 +277,7 @@ public class GameManager : NetworkBehaviour
 
             RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {brooms}", false);
             //_text.text += $"{Environment.NewLine}Jugador {i + 1}: {brooms}";
-            scores.Set(i, scores.Get(i) + brooms);
+            RpcUpdateScore(i, brooms);
         }
 
         yield return new WaitForSeconds(4);
@@ -311,7 +314,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateScore(winnerIndex, 1);
             RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
             //_text.text += $"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto";
         }
@@ -332,7 +335,7 @@ public class GameManager : NetworkBehaviour
             if (players[i].hasGold7)
             {
                 RpcUpdateText($"{Environment.NewLine}El jugador {i + 1} lo tiene", false);
-                scores.Set(i, scores.Get(i) + 1);
+                RpcUpdateScore(i, 1);
 
                 break;
             }
@@ -376,7 +379,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateScore(winnerIndex, 1);
             RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
         }
 
@@ -418,7 +421,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            scores.Set(winnerIndex, scores.Get(winnerIndex) + 1);
+            RpcUpdateScore(winnerIndex, 1);
             RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
         }
 
@@ -434,7 +437,7 @@ public class GameManager : NetworkBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             players[i].RpcClearLists();
-            int score = scores[i];
+            int score = scores.Get(i);
 
             if (score >= 15)
             {
@@ -484,8 +487,37 @@ public class GameManager : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RpcUpdateText(string text, bool overwrite)
     {
-        if (overwrite) _resultsText.text = "";
+        if (overwrite) _displayText.text = "";
 
-        _resultsText.text += text;
+        _displayText.text += text;
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
+    public void RpcUpdateScore(int index, int addedValue)
+    {
+        scores.Set(index, scores.Get(index) + addedValue);
+    }
+
+    public void ToggleScore(bool show)
+    {
+        if (show)
+        {
+            _displayText.text = "Puntaje:";
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                _displayText.text += $"{Environment.NewLine}Jugador {i + 1}: {scores.Get(i)}";
+            }
+        }
+        else
+        {
+            _displayText.text = "";
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RpcToggleScoreButton(bool on)
+    {
+        scoreButton.SetActive(on);
     }
 }

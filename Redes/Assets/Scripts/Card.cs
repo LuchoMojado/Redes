@@ -145,16 +145,16 @@ public class Card : NetworkBehaviour
         player.RpcBeDealt(this);
     }
 
-    public void Select()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcSelect()
     {
         _anim.SetBool("Selected", true);
-        print("me seleccionaron");
     }
 
-    public void Deselect()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcDeselect()
     {
         _anim.SetBool("Selected", false);
-        print("me deseleccionaron");
     }
 
     public void TurnFaceUp()

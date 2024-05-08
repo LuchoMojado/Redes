@@ -42,7 +42,7 @@ public class Player : NetworkBehaviour
     [Networked]
     public int golds { get; set; } = 0;
 
-    bool _clicked = false;
+    bool _clicked = false, _showScore = false;
     Ray _ray;
 
     public override void Spawned()
@@ -55,17 +55,13 @@ public class Player : NetworkBehaviour
     {
         if (!myTurn)
         {
-            print("no soy el player activo");
             return;
         }
-
-        print("soy el player activo");
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             _clicked = true;
-            print("click en update");
         }
     }
 
@@ -73,13 +69,10 @@ public class Player : NetworkBehaviour
     {
         if (_clicked)
         {
-            print("click en network update");
-
             RaycastHit2D hit = Runner.GetPhysicsScene2D().Raycast(_ray.origin, _ray.direction, Mathf.Infinity, _cardLayer);
 
             if (hit.collider != null)
             {
-                print("hit");
                 SelectCard(hit.transform.GetComponent<Card>());
             }
 
@@ -103,27 +96,19 @@ public class Player : NetworkBehaviour
 
     void SelectCard(Card card)
     {
-        print("entramos a select");
-
         bool inHand = _hand.Contains(card);
-
-        print("esta en mi mano");
 
         if (!GameManager.instance.onTable.Contains(card) && !inHand) return;
 
-        print("la carta es valida");
-
         if (selectedCards.Contains(card))
         {
-            print("la carta ya estaba seleccionada, la deselecciono");
             selectedCards.Remove(card);
-            card.Deselect();
+            card.RpcDeselect();
         }
         else
         {
-            print("selecciono la carta");
             selectedCards.Add(card);
-            card.Select();
+            card.RpcSelect();
         }
 
         if (inHand)
@@ -136,9 +121,8 @@ public class Player : NetworkBehaviour
                 {
                     if (item != card)
                     {
-                        print("otra carta en la mano estaba seleccionada, deselecciono");
                         selectedCards.Remove(item);
-                        item.Deselect();
+                        item.RpcDeselect();
                     }
                 }
             }
@@ -169,7 +153,7 @@ public class Player : NetworkBehaviour
         RemoveFromHand(card);
         card.RpcPlaceOnTable();
         card.RpcSetVisibility(Card.Visibility.Visible);
-        card.Deselect();
+        card.RpcDeselect();
 
         while (card.moving) yield return null;
 
@@ -203,7 +187,7 @@ public class Player : NetworkBehaviour
         if (!GameManager.instance.onTable.Any())
         {
             brooms.Add(handCard);
-            handCard.Deselect();
+            handCard.RpcDeselect();
 
             Vector3 earnedEulerRotation = earnedCardsPos.rotation.eulerAngles;
             Quaternion endRotation = Quaternion.Euler(earnedEulerRotation.x, earnedEulerRotation.y, earnedEulerRotation.z + 90);
@@ -218,7 +202,7 @@ public class Player : NetworkBehaviour
         foreach (var item in selectedCards)
         {
             item.RpcSetVisibility(Card.Visibility.Hidden);
-            item.Deselect();
+            item.RpcDeselect();
             item.RpcMove(earnedCardsPos.position, earnedCardsPos.rotation);
         }
 
@@ -368,5 +352,12 @@ public class Player : NetworkBehaviour
     {
         earnedCards.Clear();
         brooms.Clear();
+    }
+
+    public void ToggleScore()
+    {
+        _showScore = !_showScore;
+
+        GameManager.instance.ToggleScore(_showScore);
     }
 }
