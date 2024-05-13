@@ -5,8 +5,6 @@ using Fusion;
 using System.Linq;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Rendering.Universal;
-using Unity.Collections.LowLevel.Unsafe;
 
 public class GameManager : NetworkBehaviour
 {
@@ -25,14 +23,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] Transform _preGameDeckPos;
     [SerializeField] Text _displayText;
 
-    /*[Networked, OnChangedRender(nameof(UpdateText))]
-    public string displayText { get; set; }
-
-    void UpdateText()
-    {
-        _text.text = displayText;
-    }*/
-
     public bool gameStarted = false;
 
     bool _wait = false;
@@ -42,13 +32,8 @@ public class GameManager : NetworkBehaviour
     [Networked, Capacity(4)]
     public NetworkArray<int> scores { get; } = MakeInitializer(new int[] { 0, 0, 0, 0 });
 
-    //[Networked, OnChangedRender(nameof(PlayerJoined)), Capacity(4)]
-    //public NetworkArray<Player> joinedPlayers { get; set; }
-    //
-    //void PlayerJoined()
-    //{
-    //    players.Add(joinedPlayers[Runner.ActivePlayers.Count() - 1]);
-    //}
+    List<Card>[] earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
+    List<Card>[] brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
 
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcSetOnTable(Card card)
@@ -61,13 +46,40 @@ public class GameManager : NetworkBehaviour
     {
         onTable.Remove(card);
 
-        if (HasStateAuthority)
+        if (!HasStateAuthority) return;
+
+        for (int i = 0; i < onTable.Count; i++)
         {
-            for (int i = 0; i < onTable.Count; i++)
-            {
-                card = onTable[i];
-                card.RpcMove(card.GetTablePos(i), Quaternion.identity);
-            }
+            card = onTable[i];
+            card.RpcMove(card.GetTablePos(i), Quaternion.identity);
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RpcPlayerEarnsCards(int playerIndex, Card[] cardsToEarn)
+    {
+        earnedCards[playerIndex] = earnedCards[playerIndex].Concat(cardsToEarn).ToList();
+        Debug.Log($"El jugador {playerIndex + 1} tiene {earnedCards[playerIndex].Count} cartas");
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RpcPlayerGetsBroom(int playerIndex, Card broom)
+    {
+        brooms[playerIndex].Add(broom);
+        Debug.Log($"El jugador {playerIndex + 1} tiene {brooms[playerIndex].Count} escobas");
+    }
+
+    void GiveCardsOnTable(int playerIndex)
+    {
+        RpcPlayerEarnsCards(playerIndex, onTable.ToArray());
+
+        while (onTable.Count > 0)
+        {
+            var card = onTable.First();
+            RpcRemoveFromTable(card);
+            var pos = players[playerIndex].earnedCardsPos;
+            card.RpcSetVisibility(Card.Visibility.Hidden);
+            card.RpcMove(pos.position, pos.rotation);
         }
     }
 
@@ -102,6 +114,7 @@ public class GameManager : NetworkBehaviour
     {
         startGameButton.SetActive(false);
         gameStarted = true;
+        players = players.OrderBy(x => x.playerNumber).ToList();
         StartCoroutine(StartGame());
     }
 
@@ -115,8 +128,6 @@ public class GameManager : NetworkBehaviour
     public IEnumerator StartGame()
     {
         if (!HasStateAuthority) yield break;
-
-        players.OrderBy(x => x.playerNumber);
 
         _dealerIndex = UnityEngine.Random.Range(0, players.Count);
 
@@ -233,7 +244,7 @@ public class GameManager : NetworkBehaviour
             {
                 if (deck.Count <= 0)
                 {
-                    if (onTable.Count > 0) players[_lastToPickUpIndex].RpcGetCardsLeftOnTable();
+                    if (onTable.Count > 0) GiveCardsOnTable(_lastToPickUpIndex);
 
                     RpcToggleScoreButton(false);
                     RpcCountPoints();
@@ -251,7 +262,7 @@ public class GameManager : NetworkBehaviour
         players[_activeIndex].RpcStartTurn();
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcCountPoints()
     {
         StartCoroutine(CountingPoints());
@@ -270,30 +281,39 @@ public class GameManager : NetworkBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcBrooms();
-            var brooms = players[i].broomCount;
+            var copia = i;
+            //players[i].RpcBrooms();
+            var broomCount = brooms[copia].Count;
+
+            for (int j = 0; j < broomCount; j++)
+            {
+                var otraCopia = j;
+                var pos = players[copia].earnedCardsPos;
+                brooms[copia][otraCopia].RpcSetVisibility(Card.Visibility.Visible);
+                brooms[copia][otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * otraCopia), pos.rotation, 7 - copia);
+            }
+
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {broomCount}", false);
+            RpcUpdateScore(i, broomCount);
 
             yield return new WaitForSeconds(1);
-
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {brooms}", false);
-            RpcUpdateScore(i, brooms);
         }
 
         yield return new WaitForSeconds(4);
 
         RpcUpdateText("Cartas", true);
 
+        yield return new WaitForSeconds(2);
+
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcTotalEarnedCards();
-            var cards = players[i].cardCount;
-
-            yield return new WaitForSeconds(1);
+            var copia = i;
+            var cards = earnedCards[copia].Count;
 
             if (cards > currentHighest)
             {
                 currentHighest = cards;
-                winnerIndex = i;
+                winnerIndex = copia;
                 tied = false;
             }
             else if (cards == currentHighest)
@@ -301,7 +321,9 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {cards}", false);
+            RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: {cards}", false);
+
+            yield return new WaitForSeconds(1);
         }
 
         if (tied)
@@ -322,14 +344,18 @@ public class GameManager : NetworkBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcGoldSeven();
+            var copia = i;
+            var card = CheckForGold7(earnedCards[copia], out bool gotIt);
 
             yield return new WaitForSeconds(1);
 
-            if (players[i].hasGold7)
+            if (gotIt)
             {
-                RpcUpdateText($"{Environment.NewLine}El jugador {i + 1} lo tiene", false);
-                RpcUpdateScore(i, 1);
+                RpcUpdateText($"{Environment.NewLine}El jugador {copia + 1} lo tiene", false);
+                RpcUpdateScore(copia, 1);
+                var pos = players[copia].earnedCardsPos;
+                card.RpcSetVisibility(Card.Visibility.Visible);
+                card.RpcMoveAndReturn(pos.position + pos.right * 1.5f, pos.rotation, 4);
 
                 break;
             }
@@ -343,18 +369,21 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(2);
 
+        Tuple<int, List<Card>> seventy;
+
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcSeventy();
+            var copia = i;
+            seventy = Seventy(earnedCards[copia]);
+            Debug.Log(copia);
 
-            yield return new WaitForSeconds(1);
-
-            int total = players[i].seventy;
-
+            int total = seventy.Item1;
+            Debug.Log(total);
+            Debug.Log(seventy.Item2.Count);
             if (total > currentHighest)
             {
                 currentHighest = total;
-                winnerIndex = i;
+                winnerIndex = copia;
                 tied = false;
             }
             else if (total == currentHighest)
@@ -362,7 +391,16 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: sumó {total}", false);
+            foreach (var item in seventy.Item2)
+            {
+                var pos = players[copia].earnedCardsPos;
+                item.RpcSetVisibility(Card.Visibility.Visible);
+                item.RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * (int)item.suit), pos.rotation, 10 - copia);
+            }
+
+            RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: sumó {total}", false);
+
+            yield return new WaitForSeconds(1);
         }
 
         if (tied)
@@ -385,24 +423,33 @@ public class GameManager : NetworkBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcGolds();
+            var copia = i;
+            var golds = Golds(earnedCards[copia]);
 
-            yield return new WaitForSeconds(1);
+            int goldCount = golds.Count();
 
-            int golds = players[i].golds;
-
-            if (golds > currentHighest)
+            if (goldCount > currentHighest)
             {
-                currentHighest = golds;
-                winnerIndex = i;
+                currentHighest = goldCount;
+                winnerIndex = copia;
                 tied = false;
             }
-            else if (golds == currentHighest)
+            else if (goldCount == currentHighest)
             {
                 tied = true;
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {golds}", false);
+            for (int j = 0; j < goldCount; j++)
+            {
+                var otraCopia = j;
+                var pos = players[copia].earnedCardsPos;
+                golds[otraCopia].RpcSetVisibility(Card.Visibility.Visible);
+                golds[otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 0.75f * otraCopia), pos.rotation, 8 - copia);
+            }
+
+            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {goldCount}", false);
+
+            yield return new WaitForSeconds(1);
         }
 
         if (tied)
@@ -425,7 +472,8 @@ public class GameManager : NetworkBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].RpcClearLists();
+            ResetLists();
+
             int score = scores.Get(i);
 
             if (score >= 15)
@@ -470,6 +518,15 @@ public class GameManager : NetworkBehaviour
         StartCoroutine(StartRound());
     }
 
+    void ResetLists()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            earnedCards[i] = new List<Card>();
+            brooms[i] = new List<Card>();
+        }
+    }
+
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RpcUpdateText(string text, bool overwrite)
     {
@@ -505,5 +562,43 @@ public class GameManager : NetworkBehaviour
     public void RpcToggleScoreButton(bool on)
     {
         scoreButton.SetActive(on);
+    }
+
+    Card CheckForGold7(IEnumerable<Card> cards, out bool gotIt)
+    {
+        var list = cards.Where(x => x.suit == Card.Suits.Oro && x.value == 7);
+
+        if (list.Any())
+        {
+            gotIt = true;
+            return list.First();
+        }
+        else
+        {
+            gotIt = false;
+            return default;
+        }
+    }
+
+    Tuple<int,List<Card>> Seventy(IEnumerable<Card> cards)
+    {
+        var seventies = cards.Where(x => x.value <= 7).OrderBy(x => x.suit).ThenByDescending(x => x.value)
+            .Aggregate(Tuple.Create(-1, 0, new List<Card>()), (acum, current) =>
+            {
+                var result = acum.Item3;
+                if ((int)current.suit > acum.Item1)
+                {
+                    result.Add(current);
+                    acum = Tuple.Create((int)current.suit, acum.Item2 + current.value, result);
+                }
+                return acum;
+            });
+
+        return Tuple.Create(seventies.Item2, seventies.Item3);
+    }
+
+    List<Card> Golds(IEnumerable<Card> cards)
+    {
+        return cards.Where(x => x.suit == Card.Suits.Oro).ToList();
     }
 }

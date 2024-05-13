@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using System.Linq;
+using System;
 
 public class Player : NetworkBehaviour
 {
@@ -10,8 +11,6 @@ public class Player : NetworkBehaviour
 
     List<Card> _hand = new List<Card>();
     List<Card> selectedCards = new List<Card>();
-    List<Card> earnedCards = new List<Card>();
-    List<Card> brooms = new List<Card>();
 
     [Networked]
     public int handSize { get; set; } = 0;
@@ -47,8 +46,16 @@ public class Player : NetworkBehaviour
 
     public override void Spawned()
     {
-        GameManager.instance.players.Add(this);
+        StartCoroutine(SpawnedWait());
+    }
+
+    IEnumerator SpawnedWait()
+    {
+        yield return new WaitForSeconds(2);
+
         GameManager.instance.SyncCards();
+        GameManager.instance.PreGame();
+        GameManager.instance.players.Add(this);
     }
 
     private void Update()
@@ -170,7 +177,7 @@ public class Player : NetworkBehaviour
     {
         GameManager.instance.pickUpButton.SetActive(false);
 
-        earnedCards = earnedCards.Concat(selectedCards).ToList();
+        GameManager.instance.RpcPlayerEarnsCards(playerNumber, selectedCards.ToArray());
 
         var handCards = _hand.Intersect(selectedCards);
         var handCard = handCards.First();
@@ -186,7 +193,7 @@ public class Player : NetworkBehaviour
 
         if (!GameManager.instance.onTable.Any())
         {
-            brooms.Add(handCard);
+            GameManager.instance.RpcPlayerGetsBroom(playerNumber, handCard);
             handCard.RpcDeselect();
 
             Vector3 earnedEulerRotation = earnedCardsPos.rotation.eulerAngles;
@@ -221,10 +228,17 @@ public class Player : NetworkBehaviour
         handSize--;
     }
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void ToggleScore()
+    {
+        _showScore = !_showScore;
+
+        GameManager.instance.ToggleScore(_showScore);
+    }
+
+    /*[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcGetCardsLeftOnTable()
     {
-        earnedCards = earnedCards.Concat(GameManager.instance.onTable).ToList();
+        GameManager.instance.RpcPlayerEarnsCards(playerNumber, GameManager.instance.onTable.ToArray());
 
         while (GameManager.instance.onTable.Count > 0)
         {
@@ -278,8 +292,26 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcSeventy()
     {
-        int total = 0;
+        //int total = 0;
         var sevenOrLower = earnedCards.Where(x => x.value <= 7).OrderBy(x => x.suit).ThenByDescending(x => x.value);
+
+        var seventies = sevenOrLower.Aggregate(Tuple.Create(-1, 0, new List<Card>()), (acum, current) =>
+        {
+            var result = acum.Item3;
+            if ((int)current.suit > acum.Item1)
+            {
+                result.Add(current);
+                acum = Tuple.Create((int)current.suit, acum.Item2 + current.value, result);
+            }
+            return acum;
+        });
+
+        foreach (var item in seventies.Item3)
+        {
+            item.RpcSetVisibility(Card.Visibility.Visible);
+            item.RpcMove(handPos[1].position - handPos[1].right * 2.25f + handPos[1].right * (1.5f * (int)item.suit), transform.rotation);
+            StartCoroutine(ReturnToEarnedStack(item, 8));
+        }
 
         var espada = sevenOrLower.First();
         if (espada.suit == Card.Suits.Espada)
@@ -317,7 +349,7 @@ public class Player : NetworkBehaviour
             StartCoroutine(ReturnToEarnedStack(oro, 8));
         }
 
-        seventy = total;
+        seventy = seventies.Item2;
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -352,12 +384,7 @@ public class Player : NetworkBehaviour
     {
         earnedCards.Clear();
         brooms.Clear();
-    }
+    }*/
 
-    public void ToggleScore()
-    {
-        _showScore = !_showScore;
 
-        GameManager.instance.ToggleScore(_showScore);
-    }
 }

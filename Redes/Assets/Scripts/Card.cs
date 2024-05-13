@@ -180,6 +180,30 @@ public class Card : NetworkBehaviour
         moving = true;
     }
 
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcMoveAndReturn(Vector3 endPosition, Quaternion endRotation, float delay)
+    {
+        var returnTo = transform.position;
+        var rotateBackTo = transform.rotation;
+
+        _timer = 0;
+
+        _goTo = endPosition;
+        _rotateTo = endRotation;
+
+        moving = true;
+
+        StartCoroutine(Return(returnTo, rotateBackTo, delay));
+    }
+
+    IEnumerator Return(Vector3 position, Quaternion rotation, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        RpcSetVisibility(Visibility.Hidden);
+        RpcMove(position, rotation);
+    }
+
     IEnumerator TurnUpAnim()
     {
         _anim.SetTrigger("TurnUp");
