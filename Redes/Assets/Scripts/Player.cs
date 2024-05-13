@@ -140,7 +140,7 @@ public class Player : NetworkBehaviour
             GameManager.instance.playButton.SetActive(true);
             GameManager.instance.pickUpButton.SetActive(false);
         }
-        else if (CanPickUp())
+        else if (CanPickUp(selectedCards, _hand))
         {
             GameManager.instance.playButton.SetActive(false);
             GameManager.instance.pickUpButton.SetActive(true);
@@ -168,9 +168,10 @@ public class Player : NetworkBehaviour
         GameManager.instance.RpcNextPlayerTurn(false);
     }
 
-    bool CanPickUp()
+    // IA Select, Any
+    bool CanPickUp(IEnumerable<Card> selected, IEnumerable<Card> inHand)
     {
-        return selectedCards.Select(x => x.value).Sum() == 15 && _hand.Intersect(selectedCards).Any();
+        return selected.Select(x => x.value).Sum() == 15 && inHand.Intersect(selected).Any();
     }
 
     public IEnumerator PickUp()
