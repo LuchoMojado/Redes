@@ -35,6 +35,25 @@ public class GameManager : NetworkBehaviour
     List<Card>[] _earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
     List<Card>[] _brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
 
+    Stack<Card> Cheat(List<Card> tableCards, Stack<Card> deck)
+    {
+        var tableCardsSum = tableCards.Select(x => x.value).Sum();
+        var modifiedDeck = deck;
+        Card broomCard = null;
+
+        if (tableCardsSum >= 5 && tableCardsSum < 15)
+        {
+            broomCard = modifiedDeck.SkipWhile(x => x.value != 15 - tableCardsSum).FirstOrDefault();
+        }
+
+        if (broomCard != null)
+        {
+            //modifiedDeck = modifiedDeck.ToList().Remove(broomCard)
+        }
+
+        return modifiedDeck;
+    }
+
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcSetOnTable(Card card)
     {
