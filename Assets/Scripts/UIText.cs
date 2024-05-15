@@ -9,6 +9,10 @@ public class UIText : MonoBehaviour
     [SerializeField] TextMeshProUGUI _cardsOnTableText;
     bool _textIsActive = true;
 
+    private void Start()
+    {
+        SetCardTableText(GameManager.instance.onTable);
+    }
 
     void Update()
     {
@@ -25,17 +29,18 @@ public class UIText : MonoBehaviour
         }
     }
 
-    //IA OfType,Where, Select, OrderByDescending, TakeWhile, First
+    //IA Where, Select, OrderByDescending, TakeWhile, First
     public void SetCardTableText(IEnumerable<Card> cardsOnTable)
     {
         if (cardsOnTable.Count() <= 0) _cardsOnTableText.SetText("No cards on table");
 
-        cardsOnTable.OfType<Card>().Select(x => x.value).OrderByDescending(x => x).TakeWhile(x => x == cardsOnTable.Select(x => x.value).First()).ToList();
+        int highestGoldOnTable = cardsOnTable.Where(x => x.suit == Card.Suits.Oro).Select(x => x.value).OrderByDescending(x => x).First();
 
+        int highestCardOnTable = cardsOnTable.Select(x => x.value).OrderBy(x => x).Last();
 
-        foreach (var item in cardsOnTable)
-        {
-            _cardsOnTableText.SetText("Highest Card on table: " + item);
-        }
+        //ARREGLAR
+        int amountOfHighestCards = cardsOnTable/*.OfType<Card>()*/.Select(x => x.value).OrderByDescending(x => x).TakeWhile(x => x == cardsOnTable.Select(x => x.value).First()).Count();
+
+        _cardsOnTableText.SetText("Carta mas alta de oro: " + highestGoldOnTable + "  Carta mas alta de la mesa: " + highestCardOnTable + ", y hay " + amountOfHighestCards + " con ese valor");
     }
 }
