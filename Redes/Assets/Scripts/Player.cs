@@ -9,7 +9,10 @@ public class Player : NetworkBehaviour
 {
     public Transform[] handPos;
 
-    List<Card> _hand = new List<Card>();
+    [Networked, Capacity(3)]
+    public NetworkLinkedList<Card> hand { get; } = MakeInitializer(new Card[3]);
+
+    //public List<Card> _hand = new List<Card>();
     List<Card> selectedCards = new List<Card>();
 
     [Networked]
@@ -41,7 +44,7 @@ public class Player : NetworkBehaviour
     [Networked]
     public int golds { get; set; } = 0;
 
-    bool _clicked = false, _showScore = false;
+    bool _clicked = false, _showText = false;
     Ray _ray;
 
     public override void Spawned()
@@ -90,7 +93,8 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcBeDealt(Card card)
     {
-        _hand.Add(card);
+        //_hand.Add(card);
+        hand.Add(card);
         card.TurnFaceUp();
         handSize++;
     }
@@ -103,7 +107,7 @@ public class Player : NetworkBehaviour
 
     void SelectCard(Card card)
     {
-        bool inHand = _hand.Contains(card);
+        bool inHand = hand.Contains(card);
 
         if (!GameManager.instance.onTable.Contains(card) && !inHand) return;
 
@@ -120,7 +124,7 @@ public class Player : NetworkBehaviour
 
         if (inHand)
         {
-            var selectedInHand = _hand.Intersect(selectedCards);
+            var selectedInHand = hand.Intersect(selectedCards);
 
             if (selectedInHand.Count() > 1)
             {
@@ -135,12 +139,12 @@ public class Player : NetworkBehaviour
             }
         }
 
-        if (selectedCards.Count == 1 && _hand.Intersect(selectedCards).Any())
+        if (selectedCards.Count == 1 && hand.Intersect(selectedCards).Any())
         {
             GameManager.instance.playButton.SetActive(true);
             GameManager.instance.pickUpButton.SetActive(false);
         }
-        else if (CanPickUp(selectedCards, _hand))
+        else if (CanPickUp(selectedCards, hand))
         {
             GameManager.instance.playButton.SetActive(false);
             GameManager.instance.pickUpButton.SetActive(true);
@@ -180,7 +184,7 @@ public class Player : NetworkBehaviour
 
         GameManager.instance.RpcPlayerEarnsCards(playerNumber, selectedCards.ToArray());
 
-        var handCards = _hand.Intersect(selectedCards);
+        var handCards = hand.Intersect(selectedCards);
         var handCard = handCards.First();
         handCard.RpcSetVisibility(Card.Visibility.Visible);
         RemoveFromHand(handCard);
@@ -224,16 +228,23 @@ public class Player : NetworkBehaviour
 
     void RemoveFromHand(Card card)
     {
-        _hand.Remove(card);
+        hand.Remove(card);
 
         handSize--;
     }
 
     public void ToggleScore()
     {
-        _showScore = !_showScore;
+        _showText = !_showText;
 
-        GameManager.instance.ToggleScore(_showScore);
+        GameManager.instance.ToggleScore(_showText);
+    }
+
+    public void ToggleCardNames()
+    {
+        _showText = !_showText;
+
+        GameManager.instance.ToggleCardNames(_showText, GameManager.instance.onTable);
     }
 
     /*[Rpc(RpcSources.All, RpcTargets.StateAuthority)]

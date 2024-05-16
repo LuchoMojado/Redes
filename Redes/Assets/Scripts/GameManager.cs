@@ -10,7 +10,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
 
-    public GameObject startGameButton, playButton, pickUpButton, scoreButton;
+    public GameObject startGameButton, playButton, pickUpButton, scoreButton, showCardNamesButton;
 
     public List<Player> players = new List<Player>();
 
@@ -34,6 +34,29 @@ public class GameManager : NetworkBehaviour
 
     List<Card>[] _earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
     List<Card>[] _brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
+
+    // IA SkipWhile, Select
+    Stack<Card> Cheat(List<Card> tableCards, Stack<Card> deck)
+    {
+        var tableCardsSum = tableCards.Select(x => x.value).Sum();
+        var modifiedDeck = deck;
+        Card broomCard = null;
+
+        if (tableCardsSum >= 5 && tableCardsSum < 15)
+        {
+            broomCard = modifiedDeck.SkipWhile(x => x.value != 15 - tableCardsSum).FirstOrDefault();
+        }
+
+        if (broomCard != null)
+        {
+            var tempList = modifiedDeck.ToList();
+            tempList.Remove(broomCard);
+            modifiedDeck = tempList.ToStack();
+            modifiedDeck.Push(broomCard);
+        }
+
+        return modifiedDeck;
+    }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcSetOnTable(Card card)
@@ -178,7 +201,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!HasStateAuthority) yield break;
 
-        RpcToggleScoreButton(true);
+        RpcToggleButtons(true);
 
         foreach (var item in _allCards)
         {
@@ -232,6 +255,8 @@ public class GameManager : NetworkBehaviour
             for (int j = 0; j < players.Count; j++)
             {
                 if (k >= players.Count) k = 0;
+
+                if (k == _dealerIndex + 1 && i == 0) deck = Cheat(onTable, deck);
 
                 var card = deck.Pop();
                 
@@ -291,7 +316,7 @@ public class GameManager : NetworkBehaviour
                 {
                     if (onTable.Count > 0) GiveCardsOnTable(_lastToPickUpIndex);
 
-                    RpcToggleScoreButton(false);
+                    RpcToggleButtons(false);
                     RpcCountPoints();
 
                     return;
@@ -602,15 +627,43 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RpcToggleScoreButton(bool on)
+    // IA SelectMany, Aggregate, Concat
+    public void ToggleCardNames(bool show, List<Card> tableCards)
     {
-        scoreButton.SetActive(on);
+        if (show)
+        {
+            _displayText.text = tableCards.Concat(players.SelectMany(x => x.hand)).Aggregate("", (acum, current) =>
+            {
+                var cardNumber = current.value;
+
+                if (cardNumber > 7) cardNumber += 2;
+
+                acum += $"{cardNumber} de {current.suit} - ";
+
+                return acum;
+            });
+
+            _displayText.text = _displayText.text.Remove(_displayText.text.Length - 3);
+        }
+        else
+        {
+            _displayText.text = "";
+        }
     }
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RpcToggleButtons(bool on)
+    {
+        scoreButton.SetActive(on);
+        showCardNamesButton.SetActive(on);
+    }
+
+    // IA OfType, Where - Aclaración: No usamos OfType porque no hay nada de herencia en el juego, acá
+    // dejo comentado cómo lo usaríamos si los palos de las cartas fueran scripts y heredaran de Card
     Card CheckForGold7(IEnumerable<Card> cards, out bool gotIt)
     {
-        var list = cards.Where(x => x.suit == Card.Suits.Oro && x.value == 7);
+        // var list = cards.OfType(Oro).Where(x => x.value == 7);
+        var list = cards.Where(x => x.value == 7 && x.suit == Card.Suits.Oro);
 
         if (list.Any())
         {
