@@ -11,8 +11,9 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance;
 
     public GameObject startGameButton, playButton, pickUpButton, scoreButton;
+    public Button disconnect;
 
-    public List<Player> players = new List<Player>();
+    public List<(Player, PlayerRef)> players = new List<(Player, PlayerRef)>();
 
     public List<Card> onTable = new List<Card>();
     public Stack<Card> deck = new Stack<Card>();
@@ -34,6 +35,18 @@ public class GameManager : NetworkBehaviour
 
     List<Card>[] _earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
     List<Card>[] _brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcDisconnectPlayer(int index)
+    {
+        //if (Object.StateAuthority == players[index].Item2)
+        //{
+        //    Object.ReleaseStateAuthority();
+        //    //players[index + 1].Item1
+        //}
+        
+        Runner.Disconnect(players[index].Item2);
+    }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcSetOnTable(Card card)
@@ -76,7 +89,7 @@ public class GameManager : NetworkBehaviour
         {
             var card = onTable.First();
             RpcRemoveFromTable(card);
-            var pos = players[playerIndex].earnedCardsPos;
+            var pos = players[playerIndex].Item1.earnedCardsPos;
             card.RpcSetVisibility(Card.Visibility.Hidden);
             card.RpcMove(pos.position, pos.rotation);
         }
@@ -114,10 +127,10 @@ public class GameManager : NetworkBehaviour
             RpcPlayerGetsBroom(playerIndex, item);
             RpcRemoveFromTable(item);
 
-            Vector3 earnedEulerRotation = players[playerIndex].earnedCardsPos.rotation.eulerAngles;
+            Vector3 earnedEulerRotation = players[playerIndex].Item1.earnedCardsPos.rotation.eulerAngles;
             Quaternion endRotation = Quaternion.Euler(earnedEulerRotation.x, earnedEulerRotation.y, earnedEulerRotation.z + 90);
 
-            item.RpcMove(players[playerIndex].earnedCardsPos.position, endRotation);
+            item.RpcMove(players[playerIndex].Item1.earnedCardsPos.position, endRotation);
         }
 
         GiveCardsOnTable(playerIndex);
@@ -154,7 +167,7 @@ public class GameManager : NetworkBehaviour
     {
         startGameButton.SetActive(false);
         gameStarted = true;
-        players = players.OrderBy(x => x.playerNumber).ToList();
+        players = players.OrderBy(x => x.Item1.playerNumber).ToList();
         StartCoroutine(StartGame());
     }
 
@@ -191,7 +204,7 @@ public class GameManager : NetworkBehaviour
         _dealerIndex++;
         if (_dealerIndex >= players.Count) _dealerIndex = 0;
 
-        deckPos = players[_dealerIndex].deckPos;
+        deckPos = players[_dealerIndex].Item1.deckPos;
 
         foreach (var item in deck)
         {
@@ -235,7 +248,7 @@ public class GameManager : NetworkBehaviour
 
                 var card = deck.Pop();
                 
-                card.Deal(players[k]);
+                card.Deal(players[k].Item1);
 
                 while (card.moving) yield return null;
 
@@ -244,7 +257,7 @@ public class GameManager : NetworkBehaviour
         }
 
         if (k >= players.Count) k = 0;
-        players[k].RpcStartTurn();
+        players[k].Item1.RpcStartTurn();
         _activeIndex = k;
 
         _remainingTurns = 3;
@@ -254,8 +267,10 @@ public class GameManager : NetworkBehaviour
 
     public void ActivePlaysCard()
     {
-        foreach (var item in players)
+        foreach (var tuple in players)
         {
+            var item = tuple.Item1;
+
             if (item.myTurn)
             {
                 StartCoroutine(item.PlayCard());
@@ -266,8 +281,10 @@ public class GameManager : NetworkBehaviour
 
     public void ActivePicksUp()
     {
-        foreach (var item in players)
+        foreach (var tuple in players)
         {
+            var item = tuple.Item1;
+
             if (item.myTurn)
             {
                 StartCoroutine(item.PickUp());
@@ -304,7 +321,7 @@ public class GameManager : NetworkBehaviour
 
         _activeIndex++;
         if (_activeIndex >= players.Count) _activeIndex = 0;
-        players[_activeIndex].RpcStartTurn();
+        players[_activeIndex].Item1.RpcStartTurn();
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -332,7 +349,7 @@ public class GameManager : NetworkBehaviour
             for (int j = 0; j < broomCount; j++)
             {
                 var otraCopia = j;
-                var pos = players[copia].earnedCardsPos;
+                var pos = players[copia].Item1.earnedCardsPos;
                 _brooms[copia][otraCopia].RpcSetVisibility(Card.Visibility.Visible);
                 _brooms[copia][otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * otraCopia), pos.rotation, 6 - copia);
             }
@@ -397,7 +414,7 @@ public class GameManager : NetworkBehaviour
             {
                 RpcUpdateText($"{Environment.NewLine}El jugador {copia + 1} lo tiene", false);
                 RpcUpdateScore(copia, 1);
-                var pos = players[copia].earnedCardsPos;
+                var pos = players[copia].Item1.earnedCardsPos;
                 card.RpcSetVisibility(Card.Visibility.Visible);
                 card.RpcMoveAndReturn(pos.position + pos.right * 1.5f, pos.rotation, 4);
 
@@ -437,7 +454,7 @@ public class GameManager : NetworkBehaviour
 
             foreach (var item in seventy.Item2)
             {
-                var pos = players[copia].earnedCardsPos;
+                var pos = players[copia].Item1.earnedCardsPos;
                 item.RpcSetVisibility(Card.Visibility.Visible);
                 item.RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * (int)item.suit), pos.rotation, 9 - copia);
             }
@@ -486,7 +503,7 @@ public class GameManager : NetworkBehaviour
             for (int j = 0; j < goldCount; j++)
             {
                 var otraCopia = j;
-                var pos = players[copia].earnedCardsPos;
+                var pos = players[copia].Item1.earnedCardsPos;
                 golds[otraCopia].RpcSetVisibility(Card.Visibility.Visible);
                 golds[otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 0.75f * otraCopia), pos.rotation, 7 - copia);
             }

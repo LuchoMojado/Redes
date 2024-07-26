@@ -7,6 +7,8 @@ using System;
 
 public class Player : NetworkBehaviour
 {
+    [HideInInspector] public PlayerRef playerRef;
+
     public Transform[] handPos;
 
     List<Card> _hand = new List<Card>();
@@ -53,9 +55,10 @@ public class Player : NetworkBehaviour
     {
         yield return new WaitForSeconds(2);
 
+        GameManager.instance.disconnect.onClick.AddListener(Disconnect);
         GameManager.instance.SyncCards();
         GameManager.instance.PreGame();
-        GameManager.instance.players.Add(this);
+        GameManager.instance.players.Add((this, playerRef));
     }
 
     private void Update()
@@ -234,6 +237,12 @@ public class Player : NetworkBehaviour
         _showScore = !_showScore;
 
         GameManager.instance.ToggleScore(_showScore);
+    }
+
+    public void Disconnect()
+    {
+        Runner.Shutdown();
+        //GameManager.instance.RpcDisconnectPlayer(playerNumber);
     }
 
     /*[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
