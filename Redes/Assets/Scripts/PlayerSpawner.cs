@@ -4,7 +4,7 @@ using UnityEngine;
 using Fusion;
 using System.Linq;
 
-public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
+public class PlayerSpawner : SimulationBehaviour, IPlayerJoined, IPlayerLeft
 {
     [SerializeField] Player _player;
 
@@ -26,6 +26,30 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
         {
             Debug.Log("ready to start");
             GameManager.instance.startGameButton.SetActive(true);
+        }
+    }
+
+    public void PlayerLeft(PlayerRef player)
+    {
+        var playerCount = Runner.ActivePlayers.Count();
+
+        for (var i = 0; i < playerCount; i++)
+        {
+            var checkingPlayer = GameManager.instance.players[i];
+
+            if (checkingPlayer.Item2 == player)
+            {
+                //Destroy(checkingPlayer.Item1.gameObject);
+
+                GameManager.instance.players.Remove(checkingPlayer);
+
+                break;
+            }
+        }
+
+        if (playerCount < 2)
+        {
+            GameManager.instance.startGameButton.SetActive(false);
         }
     }
 }

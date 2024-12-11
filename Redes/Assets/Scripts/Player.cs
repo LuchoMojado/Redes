@@ -241,8 +241,19 @@ public class Player : NetworkBehaviour
 
     public void Disconnect()
     {
-        Runner.Shutdown();
+        Destroy(Runner.gameObject);
+        //StartCoroutine(WaitToMenu(Runner.Shutdown()));
         //GameManager.instance.RpcDisconnectPlayer(playerNumber);
+    }
+
+    IEnumerator WaitToMenu(System.Threading.Tasks.Task shutdown)
+    {
+        yield return new WaitWhile(() => shutdown.Status == System.Threading.Tasks.TaskStatus.Running);
+
+        Destroy(Runner.gameObject);
+        
+        Debug.Log("completed");
+        ScenesManager.instance.ChangeScene("MainMenu");
     }
 
     /*[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
