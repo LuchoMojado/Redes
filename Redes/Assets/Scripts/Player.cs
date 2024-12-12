@@ -20,6 +20,9 @@ public class Player : NetworkBehaviour, IAfterSpawned
     [Networked]
     public int playerNumber { get; set; }
 
+    [Networked]
+    public bool ready { get; set; } = false;
+
     public Transform deckPos;
     public Transform earnedCardsPos;
 
@@ -83,6 +86,7 @@ public class Player : NetworkBehaviour, IAfterSpawned
         yield return new WaitForSeconds(2);
 
         Debug.Log("SpawnedWaitDone");
+        GameManager.instance.ready.onClick.AddListener(ToggleReady);
         GameManager.instance.disconnect.onClick.AddListener(Disconnect);
         GameManager.instance.SyncCards();
         GameManager.instance.PreGame();
@@ -274,6 +278,15 @@ public class Player : NetworkBehaviour, IAfterSpawned
         _showScore = !_showScore;
 
         GameManager.instance.ToggleScore(_showScore);
+    }
+
+    public void ToggleReady()
+    {
+        if (!HasStateAuthority) return;
+
+        ready = !ready;
+
+        GameManager.instance.RpcReadyCheck();
     }
 
     public void Disconnect()

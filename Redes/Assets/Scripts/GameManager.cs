@@ -11,7 +11,7 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance;
 
     public GameObject startGameButton, playButton, pickUpButton, scoreButton;
-    public Button disconnect;
+    public Button ready, disconnect;
 
     public List<(Player, PlayerRef)> players = new List<(Player, PlayerRef)>();
 
@@ -162,6 +162,31 @@ public class GameManager : NetworkBehaviour
         foreach (var item in _allCards)
         {
             item.RpcMove(deckPos.position, deckPos.rotation);
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcReadyCheck()
+    {
+        int readyCount = 0;
+        bool start = true;
+
+        foreach (var item in players)
+        {
+            if (item.Item1.ready == false) start = false;
+            else readyCount++;
+        }
+        Debug.Log(readyCount);
+
+        if (!start)
+        {
+            RpcUpdateText("Players ready: " + readyCount + "/" + players.Count, true);
+        }
+        else
+        {
+            RpcUpdateText("", true);
+
+            RpcStartGame();
         }
     }
 
