@@ -8340,6 +8340,11 @@ MonoBehaviour:
   pickUpButton: {fileID: 1379430261}
   scoreButton: {fileID: 1209061277}
   disconnect: {fileID: 1457129119}
+  playerSpawns:
+  - {fileID: 1807310259}
+  - {fileID: 654534368}
+  - {fileID: 869894183}
+  - {fileID: 67948261}
   onTable: []
   deckPos: {fileID: 0}
   _allCards:
@@ -12057,11 +12062,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: -659661495653436100, guid: f0901957c79a5cd4e8d50cb655298d46, type: 3}
-  playerSpawns:
-  - {fileID: 1807310259}
-  - {fileID: 654534368}
-  - {fileID: 869894183}
-  - {fileID: 67948261}
 --- !u!1 &1457129117
 GameObject:
   m_ObjectHideFlags: 0
@@ -14934,12 +14934,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 1947354236}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &1971578397
 GameObject:
   m_ObjectHideFlags: 0

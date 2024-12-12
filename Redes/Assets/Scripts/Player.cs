@@ -5,7 +5,7 @@ using Fusion;
 using System.Linq;
 using System;
 
-public class Player : NetworkBehaviour
+public class Player : NetworkBehaviour, IAfterSpawned
 {
     [HideInInspector] public PlayerRef playerRef;
 
@@ -48,17 +48,54 @@ public class Player : NetworkBehaviour
 
     public override void Spawned()
     {
+        Debug.Log("Spawned");
         StartCoroutine(SpawnedWait());
+    }
+
+    public void AfterSpawned()
+    {
+        //GameManager.instance.disconnect.onClick.AddListener(Disconnect);
+        //GameManager.instance.SyncCards();
+        //GameManager.instance.PreGame();
+        //RpcAsignPlayer(this, playerRef);
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        Debug.Log("Despawned");
+        GameManager.instance.players.RemoveAt(playerNumber);
+        GameManager.instance.ArrangePlayers();
+
+        base.Despawned(runner, hasState);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcUpdateNumber(int newNumber)
+    {
+        playerNumber = newNumber;
+
+        transform.position = GameManager.instance.playerSpawns[newNumber].position;
+        transform.rotation = GameManager.instance.playerSpawns[newNumber].rotation;
     }
 
     IEnumerator SpawnedWait()
     {
         yield return new WaitForSeconds(2);
 
+        Debug.Log("SpawnedWaitDone");
         GameManager.instance.disconnect.onClick.AddListener(Disconnect);
         GameManager.instance.SyncCards();
         GameManager.instance.PreGame();
         GameManager.instance.players.Add((this, playerRef));
+        //RpcAsignPlayer(this, playerRef);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcAssignPlayer(Player player, PlayerRef pRef)
+    {
+        Debug.Log("Assigned");
+        
+        GameManager.instance.players.Add((player, pRef));
     }
 
     private void Update()

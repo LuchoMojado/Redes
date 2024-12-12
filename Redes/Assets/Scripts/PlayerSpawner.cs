@@ -8,15 +8,13 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined, IPlayerLeft
 {
     [SerializeField] Player _player;
 
-    public Transform[] playerSpawns;
-
     public void PlayerJoined(PlayerRef player)
     {
         var playerCount = Runner.ActivePlayers.Count() - 1;
 
         if (player == Runner.LocalPlayer && playerCount < 4 && !GameManager.instance.gameStarted)
         {
-            var spawnedPlayer = Runner.Spawn(_player, playerSpawns[playerCount].position, playerSpawns[playerCount].rotation);
+            var spawnedPlayer = Runner.Spawn(_player, GameManager.instance.playerSpawns[playerCount].position, GameManager.instance.playerSpawns[playerCount].rotation);
             spawnedPlayer.playerRef = player;
             spawnedPlayer.playerNumber = playerCount;
             //GameManager.instance.PreGame();
@@ -33,20 +31,20 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined, IPlayerLeft
     {
         var playerCount = Runner.ActivePlayers.Count();
 
-        for (var i = 0; i < playerCount; i++)
-        {
-            var checkingPlayer = GameManager.instance.players[i];
-
-            if (checkingPlayer.Item2 == player)
-            {
-                //Destroy(checkingPlayer.Item1.gameObject);
-
-                GameManager.instance.players.Remove(checkingPlayer);
-
-                break;
-            }
-        }
-
+        //for (var i = 0; i < playerCount; i++)
+        //{
+        //    var checkingPlayer = GameManager.instance.players[i];
+        //
+        //    if (checkingPlayer.Item2 == player)
+        //    {
+        //        //Destroy(checkingPlayer.Item1.gameObject);
+        //
+        //        GameManager.instance.players.Remove(checkingPlayer);
+        //        Debug.Log("Succesfully Removed");
+        //        break;
+        //    }
+        //}
+        Debug.Log(GameManager.instance.players.Count);
         if (playerCount < 2)
         {
             GameManager.instance.startGameButton.SetActive(false);

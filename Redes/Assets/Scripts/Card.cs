@@ -224,9 +224,8 @@ public class Card : NetworkBehaviour
 
     IEnumerator SyncVisibility()
     {
-        print("start sync");
         yield return new WaitForSeconds(0.4f);
-        print("finished sync");
+        
         RpcSetVisibility(Visibility.Hidden);
     }
 }

@@ -15,6 +15,8 @@ public class GameManager : NetworkBehaviour
 
     public List<(Player, PlayerRef)> players = new List<(Player, PlayerRef)>();
 
+    public Transform[] playerSpawns;
+
     public List<Card> onTable = new List<Card>();
     public Stack<Card> deck = new Stack<Card>();
 
@@ -36,16 +38,17 @@ public class GameManager : NetworkBehaviour
     List<Card>[] _earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
     List<Card>[] _brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RpcDisconnectPlayer(int index)
+    public void ArrangePlayers()
     {
-        //if (Object.StateAuthority == players[index].Item2)
-        //{
-        //    Object.ReleaseStateAuthority();
-        //    //players[index + 1].Item1
-        //}
-        
-        Runner.Disconnect(players[index].Item2);
+        for (int i = 0; i < players.Count; i++)
+        {
+            var player = players[i].Item1;
+
+            if (player.playerNumber != i)
+            {
+                player.RpcUpdateNumber(i);
+            }
+        }
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
