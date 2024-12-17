@@ -49,6 +49,8 @@ public class GameManager : NetworkBehaviour
                 player.RpcUpdateNumber(i);
             }
         }
+
+        //players[0].Item1.RpcClaimGamemanager();
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
@@ -366,6 +368,8 @@ public class GameManager : NetworkBehaviour
 
     IEnumerator CountingPoints()
     {
+        SyncCards();
+
         int currentHighest = 0, winnerIndex = 0;
         bool tied = false;
 
@@ -600,8 +604,7 @@ public class GameManager : NetworkBehaviour
 
             RpcUpdateText("", true);
 
-            PreGame();
-            RpcTurnOnStartGameButton();
+            RpcRestartGame();
 
             yield break;
         }
@@ -620,6 +623,32 @@ public class GameManager : NetworkBehaviour
             _earnedCards[i] = new List<Card>();
             _brooms[i] = new List<Card>();
         }
+
+        onTable.Clear();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcRestartGame()
+    {
+        gameStarted = false;
+
+        deck.Clear();
+
+        foreach (var item in _allCards)
+        {
+            item.RpcDeselect();
+        }
+
+        SyncCards();
+        ResetLists();
+        PreGame();
+        RpcTurnOnStartGameButton();
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            RpcResetScore(i);
+            players[i].Item1.RpcReset();
+        }
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -630,10 +659,23 @@ public class GameManager : NetworkBehaviour
         _displayText.text += text;
     }
 
+    public void UpdateText(string text, bool overwrite)
+    {
+        if (overwrite) _displayText.text = "";
+
+        _displayText.text += text;
+    }
+
     [Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
     public void RpcUpdateScore(int index, int addedValue)
     {
         scores.Set(index, scores.Get(index) + addedValue);
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
+    public void RpcResetScore(int index)
+    {
+        scores.Set(index, 0);
     }
 
     public void ToggleScore(bool show)
@@ -677,7 +719,7 @@ public class GameManager : NetworkBehaviour
 
     public void StartingPlayerLeft()
     {
-        //if (players.Count > 1) players[1].Item1
+        UpdateText("Starting player left, go back to menu to start a new game", true);
     }
 
     /* Preguntar por que esto no funciona

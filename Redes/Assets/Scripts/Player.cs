@@ -51,6 +51,14 @@ public class Player : NetworkBehaviour, IAfterSpawned
     bool _clicked = false, _showScore = false;
     Ray _ray;
 
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcReset()
+    {
+        handSize = 0;
+        _hand.Clear();
+        selectedCards.Clear();
+    }
+
     public override void Spawned()
     {
         Debug.Log("Spawned");
@@ -59,19 +67,23 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
     public void AfterSpawned()
     {
+        //GameManager.instance.ready.onClick.AddListener(ToggleReady);
         //GameManager.instance.disconnect.onClick.AddListener(Disconnect);
         //GameManager.instance.SyncCards();
         //GameManager.instance.PreGame();
-        //RpcAsignPlayer(this, playerRef);
+        //GameManager.instance.players.Add((this, playerRef));
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
-        if (!HasStateAuthority) return;
+        if (playerNumber == 0 && !HasStateAuthority)
+        {
+            GameManager.instance.StartingPlayerLeft();
+        }
 
-        Debug.Log("Despawned");
         GameManager.instance.players.RemoveAt(playerNumber);
         GameManager.instance.ArrangePlayers();
+        Debug.Log(GameManager.instance.players.Count);
 
         base.Despawned(runner, hasState);
     }
@@ -298,8 +310,6 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
     public void Disconnect()
     {
-        if (playerNumber == 0) GameManager.instance.StartingPlayerLeft();
-
         Destroy(Runner.gameObject);
         //StartCoroutine(WaitToMenu(Runner.Shutdown()));
         //GameManager.instance.RpcDisconnectPlayer(playerNumber);

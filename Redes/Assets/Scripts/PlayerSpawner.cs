@@ -32,6 +32,11 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined, IPlayerLeft
     {
         var playerCount = Runner.ActivePlayers.Count();
 
+        if (GameManager.instance.gameStarted)
+        {
+            GameManager.instance.RpcRestartGame();
+        }
+
         GameManager.instance.RpcReadyCheck();
 
         if (playerCount < 2)
