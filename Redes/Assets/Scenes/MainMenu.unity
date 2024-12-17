@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c98e3c5a2696a64888b0d6563fcce54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49213afc36782c649ba142023f79397c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 061dae39da77cf540ae0ec0508e506f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c624b673353c45444a6c5deb1cf64719, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4686,7 +4686,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: ccbebbf523390894f997e2c13086303f, type: 3}
     m_FontSize: 55
     m_FontStyle: 0
     m_BestFit: 0
@@ -8603,11 +8603,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ea736ebb5560b4fbb2a723fda701a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGameButton: {fileID: 1817883873}
-  playButton: {fileID: 148547751}
+  readyButton: {fileID: 0}
+  throwButton: {fileID: 0}
   pickUpButton: {fileID: 1379430261}
   scoreButton: {fileID: 1209061277}
-  players: []
+  ready: {fileID: 0}
+  disconnect: {fileID: 0}
+  playerSpawns: []
   onTable: []
   deckPos: {fileID: 0}
   _allCards:
@@ -10477,7 +10479,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 103, y: 34}
-  m_SizeDelta: {x: 160, y: 35}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1209061279
 MonoBehaviour:
@@ -10555,7 +10557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f9ab5a140359d714a9ae2274b14f620e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1511e345919c3ec47a6875c07af29b49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11639,7 +11641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba42da15db2021c43ac6b099dffc1e06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26ec45e2072003d41a4570f0d9e0e24d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12191,11 +12193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: -659661495653436100, guid: f0901957c79a5cd4e8d50cb655298d46, type: 3}
-  playerSpawns:
-  - {fileID: 1807310259}
-  - {fileID: 654534368}
-  - {fileID: 869894183}
-  - {fileID: 67948261}
 --- !u!1 &1468938960
 GameObject:
   m_ObjectHideFlags: 0
@@ -13670,7 +13667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c98e3c5a2696a64888b0d6563fcce54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49213afc36782c649ba142023f79397c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15414,7 +15411,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010335765}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -16340,8 +16337,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d85d7b8b508371e468067050920ee0f5, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
