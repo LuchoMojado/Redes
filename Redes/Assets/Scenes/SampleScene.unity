@@ -8335,8 +8335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ea736ebb5560b4fbb2a723fda701a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGameButton: {fileID: 1817883873}
-  playButton: {fileID: 148547751}
+  readyButton: {fileID: 1817883873}
+  throwButton: {fileID: 148547751}
   pickUpButton: {fileID: 1379430261}
   scoreButton: {fileID: 1209061277}
   ready: {fileID: 1817883875}
@@ -8422,7 +8422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1327702195
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 524289
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 937452464}

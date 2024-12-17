@@ -9,6 +9,8 @@ public class Player : NetworkBehaviour, IAfterSpawned
 {
     [HideInInspector] public PlayerRef playerRef;
 
+    [SerializeField] Sprite _readyImage, _cancelImage;
+
     public Transform[] handPos;
 
     List<Card> _hand = new List<Card>();
@@ -65,6 +67,8 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
+        if (!HasStateAuthority) return;
+
         Debug.Log("Despawned");
         GameManager.instance.players.RemoveAt(playerNumber);
         GameManager.instance.ArrangePlayers();
@@ -181,24 +185,24 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
         if (selectedCards.Count == 1 && _hand.Intersect(selectedCards).Any())
         {
-            GameManager.instance.playButton.SetActive(true);
+            GameManager.instance.throwButton.SetActive(true);
             GameManager.instance.pickUpButton.SetActive(false);
         }
         else if (CanPickUp(selectedCards, _hand))
         {
-            GameManager.instance.playButton.SetActive(false);
+            GameManager.instance.throwButton.SetActive(false);
             GameManager.instance.pickUpButton.SetActive(true);
         }
         else
         {
-            GameManager.instance.playButton.SetActive(false);
+            GameManager.instance.throwButton.SetActive(false);
             GameManager.instance.pickUpButton.SetActive(false);
         }
     }
 
     public IEnumerator PlayCard()
     {
-        GameManager.instance.playButton.SetActive(false);
+        GameManager.instance.throwButton.SetActive(false);
         var card = selectedCards.First();
         selectedCards.Clear();
         RemoveFromHand(card);
@@ -286,11 +290,16 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
         ready = !ready;
 
+        if (ready) GameManager.instance.ready.image.sprite = _cancelImage;
+        else GameManager.instance.ready.image.sprite = _readyImage;
+
         GameManager.instance.RpcReadyCheck();
     }
 
     public void Disconnect()
     {
+        if (playerNumber == 0) GameManager.instance.StartingPlayerLeft();
+
         Destroy(Runner.gameObject);
         //StartCoroutine(WaitToMenu(Runner.Shutdown()));
         //GameManager.instance.RpcDisconnectPlayer(playerNumber);
@@ -304,6 +313,12 @@ public class Player : NetworkBehaviour, IAfterSpawned
         
         Debug.Log("completed");
         ScenesManager.instance.ChangeScene("MainMenu");
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcClaimGamemanager()
+    {
+        GameManager.instance.Object.RequestStateAuthority();
     }
 
     /*[Rpc(RpcSources.All, RpcTargets.StateAuthority)]

@@ -10,7 +10,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
 
-    public GameObject startGameButton, playButton, pickUpButton, scoreButton;
+    public GameObject readyButton, throwButton, pickUpButton, scoreButton;
     public Button ready, disconnect;
 
     public List<(Player, PlayerRef)> players = new List<(Player, PlayerRef)>();
@@ -168,19 +168,25 @@ public class GameManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcReadyCheck()
     {
+        int playerCount = Runner.ActivePlayers.Count();
+        
+        if (playerCount == 1)
+        {
+            RpcUpdateText("Players joined: " + playerCount + $"{Environment.NewLine}" + "Waiting for more players to join", true);
+
+            return;
+        }
+
         int readyCount = 0;
-        bool start = true;
 
         foreach (var item in players)
         {
-            if (item.Item1.ready == false) start = false;
-            else readyCount++;
+            if (item.Item1.ready) readyCount++;
         }
-        Debug.Log(readyCount);
 
-        if (!start)
+        if (readyCount < playerCount)
         {
-            RpcUpdateText("Players ready: " + readyCount + "/" + players.Count, true);
+            RpcUpdateText("Players joined: " + playerCount + $"{Environment.NewLine}" + readyCount + "/" + playerCount + " are ready", true);
         }
         else
         {
@@ -193,7 +199,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcStartGame()
     {
-        startGameButton.SetActive(false);
+        readyButton.SetActive(false);
         gameStarted = true;
         players = players.OrderBy(x => x.Item1.playerNumber).ToList();
         StartCoroutine(StartGame());
@@ -202,7 +208,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RpcTurnOnStartGameButton()
     {
-        startGameButton.SetActive(true);
+        readyButton.SetActive(true);
         gameStarted = false;
     }
 
@@ -667,6 +673,11 @@ public class GameManager : NetworkBehaviour
             gotIt = false;
             return default;
         }
+    }
+
+    public void StartingPlayerLeft()
+    {
+        //if (players.Count > 1) players[1].Item1
     }
 
     /* Preguntar por que esto no funciona
