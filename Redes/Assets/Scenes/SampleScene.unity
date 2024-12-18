@@ -8391,8 +8391,9 @@ MonoBehaviour:
   - {fileID: 2133646041}
   _preGameDeckPos: {fileID: 2052858049}
   _displayText: {fileID: 517426593}
-  gameStarted: 0
+  _gameStarted: 0
   _scores: 00000000000000000000000000000000
+  _playerIDs: ffffffffffffffffffffffffffffffff
 --- !u!4 &937452465
 Transform:
   m_ObjectHideFlags: 0
@@ -10784,12 +10785,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 1233479931}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &1254189250
 GameObject:
   m_ObjectHideFlags: 0
@@ -12145,19 +12146,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1457129120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 364522386}
-        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainMenu
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1457129120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15796,7 +15785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1043571076
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 2099482125}
@@ -15896,12 +15885,12 @@ MonoBehaviour:
   m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  TotalWords: -1
+  Animator: {fileID: 2099482130}
+  TotalWords: 1
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 
-  TriggerHashes: 
+  StateHashes: 0000000026587ff73cc9451d5f3b4beb45aa7101f6ef5e4cb5416d4f88229c4e5689dd2dedd25903ae7c6a00e3dc77290dbebf5c
+  TriggerHashes: 00000000edd2590326587ff7
 --- !u!1 &2101556555
 GameObject:
   m_ObjectHideFlags: 0

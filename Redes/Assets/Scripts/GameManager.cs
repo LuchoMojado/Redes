@@ -26,7 +26,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] Transform _preGameDeckPos;
     [SerializeField] Text _displayText;
 
-    public bool gameStarted = false;
+    [Networked]
+    public bool gameStarted { get; set; } = false;
 
     bool _wait = false;
 
@@ -34,6 +35,9 @@ public class GameManager : NetworkBehaviour
 
     [Networked, Capacity(4)]
     public NetworkArray<int> scores { get; } = MakeInitializer(new int[] { 0, 0, 0, 0 });
+
+    [Networked, Capacity(4)]
+    public NetworkArray<int> playerIDs { get; } = MakeInitializer(new int[] { -3, -3, -3, -3 });
 
     List<Card>[] _earnedCards = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
     List<Card>[] _brooms = { new List<Card>(), new List<Card>(), new List<Card>(), new List<Card>() };
@@ -205,6 +209,11 @@ public class GameManager : NetworkBehaviour
         gameStarted = true;
         players = players.OrderBy(x => x.Item1.playerNumber).ToList();
         StartCoroutine(StartGame());
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerIDs.Set(i, players[i].Item2.PlayerId);
+        }
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
@@ -642,7 +651,6 @@ public class GameManager : NetworkBehaviour
         SyncCards();
         ResetLists();
         PreGame();
-        RpcTurnOnStartGameButton();
 
         for (int i = 0; i < players.Count; i++)
         {
@@ -720,6 +728,8 @@ public class GameManager : NetworkBehaviour
     public void StartingPlayerLeft()
     {
         UpdateText("Starting player left, go back to menu to start a new game", true);
+        readyButton.SetActive(false);
+        scoreButton.SetActive(false);
     }
 
     /* Preguntar por que esto no funciona

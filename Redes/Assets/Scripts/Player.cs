@@ -7,7 +7,8 @@ using System;
 
 public class Player : NetworkBehaviour, IAfterSpawned
 {
-    [HideInInspector] public PlayerRef playerRef;
+    [Networked]
+    public PlayerRef playerRef { get; set; }
 
     [SerializeField] Sprite _readyImage, _cancelImage;
 
@@ -33,34 +34,28 @@ public class Player : NetworkBehaviour, IAfterSpawned
     [Networked]
     public bool myTurn { get; set; } = false;
 
-    [Networked]
-    public int broomCount { get; set; } = 0;
-
-    [Networked]
-    public int cardCount { get; set; } = 0;
-
-    [Networked]
-    public bool hasGold7 { get; set; } = false;
-
-    [Networked]
-    public int seventy { get; set; } = 0;
-
-    [Networked]
-    public int golds { get; set; } = 0;
-
     bool _clicked = false, _showScore = false;
     Ray _ray;
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcReset()
     {
+        ready = false;
+        myTurn = false;
         handSize = 0;
         _hand.Clear();
         selectedCards.Clear();
+
+        GameManager.instance.throwButton.SetActive(false);
+        GameManager.instance.pickUpButton.SetActive(false);
+        GameManager.instance.ready.image.sprite = _readyImage;
+        GameManager.instance.RpcReadyCheck();
     }
 
     public override void Spawned()
     {
+        if (GameManager.instance.gameStarted) return;
+
         Debug.Log("Spawned");
         StartCoroutine(SpawnedWait());
     }
@@ -83,7 +78,6 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
         GameManager.instance.players.RemoveAt(playerNumber);
         GameManager.instance.ArrangePlayers();
-        Debug.Log(GameManager.instance.players.Count);
 
         base.Despawned(runner, hasState);
     }
@@ -95,6 +89,12 @@ public class Player : NetworkBehaviour, IAfterSpawned
 
         transform.position = GameManager.instance.playerSpawns[newNumber].position;
         transform.rotation = GameManager.instance.playerSpawns[newNumber].rotation;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcSetPlayerRef(PlayerRef pRef)
+    {
+        playerRef = pRef;
     }
 
     IEnumerator SpawnedWait()
@@ -311,6 +311,7 @@ public class Player : NetworkBehaviour, IAfterSpawned
     public void Disconnect()
     {
         Destroy(Runner.gameObject);
+        ScenesManager.instance.ChangeScene("MainMenu");
         //StartCoroutine(WaitToMenu(Runner.Shutdown()));
         //GameManager.instance.RpcDisconnectPlayer(playerNumber);
     }
