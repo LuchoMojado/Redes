@@ -401,7 +401,8 @@ public class GameManager : NetworkBehaviour
                 _brooms[copia][otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * otraCopia), pos.rotation, 6 - copia);
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {broomCount}", false);
+            //RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {broomCount}", false);
+            RpcUpdateText($"{Environment.NewLine}Player {i + 1}: {broomCount}", false);
             RpcUpdateScore(i, broomCount);
 
             yield return new WaitForSeconds(1);
@@ -409,7 +410,8 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(4);
 
-        RpcUpdateText("Cartas", true);
+        //RpcUpdateText("Cartas", true);
+        RpcUpdateText("Most cards", true);
 
         yield return new WaitForSeconds(2);
 
@@ -429,24 +431,28 @@ public class GameManager : NetworkBehaviour
                 tied = true;
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: {cards}", false);
+            //RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: {cards}", false);
+            RpcUpdateText($"{Environment.NewLine}Player {copia + 1}: {cards}", false);
 
             yield return new WaitForSeconds(1);
         }
 
         if (tied)
         {
-            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}There was a tie, no one gets the point", false);
         }
         else
         {
             RpcUpdateScore(winnerIndex, 1);
-            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}Player {winnerIndex + 1} gets the point", false);
         }
 
         yield return new WaitForSeconds(4);
 
-        RpcUpdateText("7 de Oro", true);
+        //RpcUpdateText("7 de Oro", true);
+        RpcUpdateText("7 of Coins", true);
 
         yield return new WaitForSeconds(2);
 
@@ -459,7 +465,8 @@ public class GameManager : NetworkBehaviour
 
             if (gotIt)
             {
-                RpcUpdateText($"{Environment.NewLine}El jugador {copia + 1} lo tiene", false);
+                //RpcUpdateText($"{Environment.NewLine}El jugador {copia + 1} lo tiene", false);
+                RpcUpdateText($"{Environment.NewLine}Player {copia + 1} has it", false);
                 RpcUpdateScore(copia, 1);
                 var pos = players[copia].Item1.earnedCardsPos;
                 card.RpcSetVisibility(Card.Visibility.Visible);
@@ -473,7 +480,8 @@ public class GameManager : NetworkBehaviour
 
         currentHighest = 0;
 
-        RpcUpdateText("Setenta", true);
+        //RpcUpdateText("Setenta", true);
+        RpcUpdateText("Seventies", true);
 
         yield return new WaitForSeconds(2);
 
@@ -506,26 +514,29 @@ public class GameManager : NetworkBehaviour
                 item.RpcMoveAndReturn(pos.position + pos.right * (1.5f + 1.5f * (int)item.suit), pos.rotation, 9 - copia);
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: sumó {total}", false);
+            //RpcUpdateText($"{Environment.NewLine}Jugador {copia + 1}: sumó {total}", false);
+            RpcUpdateText($"{Environment.NewLine}Player {copia + 1}: {total}", false);
 
             yield return new WaitForSeconds(1);
         }
 
         if (tied)
         {
-            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}There was a tie, no one gets the point", false);
         }
         else
         {
             RpcUpdateScore(winnerIndex, 1);
-            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}Player {winnerIndex + 1} gets the point", false);
         }
 
         yield return new WaitForSeconds(7);
 
         currentHighest = 0;
 
-        RpcUpdateText("Oro", true);
+        RpcUpdateText("Coins", true);
 
         yield return new WaitForSeconds(2);
 
@@ -555,24 +566,27 @@ public class GameManager : NetworkBehaviour
                 golds[otraCopia].RpcMoveAndReturn(pos.position + pos.right * (1.5f + 0.75f * otraCopia), pos.rotation, 7 - copia);
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {goldCount}", false);
+            RpcUpdateText($"{Environment.NewLine}Player {i + 1}: {goldCount}", false);
 
             yield return new WaitForSeconds(1);
         }
 
         if (tied)
         {
-            RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}Hubo un empate, nadie gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}There was a tie, no one gets the point", false);
         }
         else
         {
             RpcUpdateScore(winnerIndex, 1);
-            RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            //RpcUpdateText($"{Environment.NewLine}El jugador {winnerIndex + 1} gana el punto", false);
+            RpcUpdateText($"{Environment.NewLine}Player {winnerIndex + 1} gets the point", false);
         }
 
         yield return new WaitForSeconds(5);
 
-        RpcUpdateText("Puntaje", true);
+        //RpcUpdateText("Puntaje", true);
+        RpcUpdateText("Score", true);
 
         bool winner = false;
         tied = false;
@@ -598,22 +612,26 @@ public class GameManager : NetworkBehaviour
                 currentHighest = score;
             }
 
-            RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {score}", false);
+            //RpcUpdateText($"{Environment.NewLine}Jugador {i + 1}: {score}", false);
+            RpcUpdateText($"{Environment.NewLine}Player {i + 1}: {score}", false);
         }
 
         if (tied)
         {
-            RpcUpdateText($"{Environment.NewLine}Hay empate, comienza ronda de desempate", false);
+            //RpcUpdateText($"{Environment.NewLine}Hay empate, comienza ronda de desempate", false);
+            RpcUpdateText($"{Environment.NewLine}There was a tie, starting tie-breaker round", false);
         }
         else if (winner)
         {
-            RpcUpdateText($"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}", false);
+            //RpcUpdateText($"{Environment.NewLine}Fin del juego, ganó el jugador {winnerIndex + 1}", false);
+            RpcUpdateText($"{Environment.NewLine}Game over, player {winnerIndex + 1} wins", false);
 
             yield return new WaitForSeconds(5);
 
             RpcUpdateText("", true);
 
             RpcRestartGame();
+            RpcTurnOnStartGameButton();
 
             yield break;
         }
@@ -690,11 +708,13 @@ public class GameManager : NetworkBehaviour
     {
         if (show)
         {
-            _displayText.text = "Puntaje:";
+            //_displayText.text = "Puntaje:";
+            _displayText.text = "Score:";
 
             for (int i = 0; i < players.Count; i++)
             {
-                _displayText.text += $"{Environment.NewLine}Jugador {i + 1}: {scores.Get(i)}";
+                //_displayText.text += $"{Environment.NewLine}Jugador {i + 1}: {scores.Get(i)}";
+                _displayText.text += $"{Environment.NewLine}Player {i + 1}: {scores.Get(i)}";
             }
         }
         else
